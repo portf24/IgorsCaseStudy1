@@ -1,0 +1,151 @@
+---
+title: "Project for Ciclistics - Data Cleaning"
+author: "Igor Vysochanskyy"
+date: "2024-03-31"
+output:
+  html_document: default
+  word_document: default
+---
+
+### This R Markdown template cleans the April 2023 dataset and can be applied to other 2023 datasets.
+#### Install R packages & their libraries to enable subsequent operations.
+#### If using RStudio 2024.04.1 run libraries only.
+```{r, message=FALSE}
+library("tidyverse")
+```
+
+```{r}
+library("skimr")
+```
+
+```{r}
+library(openxlsx)
+```
+
+#### URL for all 2023 datasets: https://divvy-tripdata.s3.amazonaws.com/index.html
+#### If using as a template, change data frame names & directory accordinly
+#### Upload original 202304-divvy-tripdata.csv (Only "202304..." is a part of repository)
+```{r}
+tr304_orig <- read_csv("202304-divvy-tripdata.csv")
+```
+### Note 1: "started_at" & "ended_at" - (chr). Format to (dttm).
+
+#### Creating a subset from selected 7 columns from the original dataset
+```{r}
+trip304_orig <- subset(tr304_orig, select = c(ride_id, rideable_type, started_at, ended_at, member_casual, start_station_name, end_station_name))
+```
+
+#### Detailed subset observation
+```{r}
+skim_without_charts(trip304_orig)
+```
+### Note 2: In "rideable_type" - n_unique is 3 - docked_bike is present!
+### Note 3: Max not = to Min in the "ride_id" column - remove duplicates!
+### Note 4: Missing values in the "start & end_station_name" columns.
+
+#### Delete all rows with missing values in "start &  end_stations_name" columns, except if rideable_type == "electric_bike"
+```{r}
+trip304 <- trip304_orig %>%
+  filter((!is.na(start_station_name) &  !is.na(end_station_name)) | rideable_type == "electric_bike")
+```
+
+#### Delete rows in "ride_id" if number of characters is not = 16. (For 2023, "03-04" datasets only)
+```{r}
+bikeid304 <- trip304[nchar(trip304$ride_id) == 16, ]
+```
+
+#### Select 5 columns with relevant data at this point
+```{r}
+trip5304 <- subset(bikeid304, select = c(ride_id, rideable_type,           started_at, ended_at, member_casual))
+```
+
+#### Format from (chr) to (dttm) "started_at" & "ended_at col". (For 2023, "03-04" datasets only)
+```{r}
+trip5304$started_at <- as.POSIXct(trip5304$started_at,
+                                         format = "%m/%d/%Y %H:%M")
+trip5304$ended_at <- as.POSIXct(trip5304$ended_at,
+                                         format = "%m/%d/%Y %H:%M")
+```
+
+#### Create column "ride_length" as the trip duration in minutes
+```{r}
+trip5304$ride_length <- difftime(trip5304$ended_at,         
+                      trip5304$started_at, units = "mins")
+```
+
+### Percentiles of trip duration less or equal 2 min. for casual riders:
+```{r}
+p04 <- seq(0.015, 0.04, by = 0.005)
+values04 <- quantile(subset(trip5304, member_casual == "casual")$ride_length, 
+                    probs = p04)
+```
+
+#### Create a data frame with percentiles and values
+```{r}
+p04_df <- data.frame(Percentile = p04, Value = values04)
+```
+
+#### Print the data frame for casual riders
+```{r}
+print(p04_df)
+```
+
+
+#### Trim "ride_length" from outliers: keep 2 min. - 12 hour range
+```{r}
+trim304 <- trip5304[(trip5304$ride_length >= 2 & 
+                      trip5304$ride_length <=  720), ]
+```
+
+### skim_without_charts() reveals the extent of data cleanliness
+```{r}
+skim_without_charts(trim304)
+```
+### Clean Data Description:
+- Number of rows = n_unique for ride_id column - no duplicates;
+- Same number of characters (16) in ride_id column;
+- Whitespace and empty cells: 0 in each column;
+- Completeness: complete_rate = 1 (no missing values in any column);
+- Column names: Correct;
+- Character length variation in columns 2-4 is normal for this data type;
+- Overall, the dataset is clean and ready for analysis.
+
+#### Export as .xlsx file & perform the next steps in Excel:
+- Correct format in "ride_length" & add "day_of_week" columns
+- Delete the "ended_at" column as not relevant anymore.
+- Perform analysis by using Excel Pivot Table Charts.
+```{r}
+write.xlsx(trim304, "E:\\Bike project\\Clean301-12\\Clean304.xlsx")
+```
+
+#### Final modification after analysis in Exel:
+#### Remove rows where rideable_type = "docked_bike". (For 2023, "01-08" datasets only)
+```{r}
+trim_doc304 <- trim304[trim304$rideable_type != "docked_bike", ]
+```
+
+#### Remove "ended_at". Keep columns with relevant data for analysis
+```{r}
+data304 <- subset(trim_doc304, select = c(ride_id, rideable_type,           started_at, member_casual, ride_length))
+```
+
+#### Convert the "ride_length" column format as numeric (dbl)
+```{r}
+data304$ride_length <- as.numeric(data304$ride_length)
+data304$ride_length <- round(data304$ride_length, 1)
+```
+
+#### Add "day_of_week" column from "started_at"
+```{r}
+data304$day_of_week <- format(data304$started_at, "%a")
+```
+
+#### Quick data observation
+```{r}
+glimpse(data304)
+```
+
+#### Save modified and cleaned dataset as .RData object
+```{r}
+save(data304, file = "CleanBike304.RData")
+```

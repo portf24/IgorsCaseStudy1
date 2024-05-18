@@ -1,0 +1,504 @@
+---
+title: "Project for Ciclistics - Analysis"
+author: "Igor Vysochanskyy"
+date: "2024-04-30"
+output:
+  html_document: default
+  word_document: default
+---
+
+### This R Markdown analyzes differences between members & casual bike users.
+#### Install R packages & their libraries to enable subsequent operations.
+#### If using RStudio 2024.04.1 run libraries only.
+```{r, message=FALSE}
+library("tidyverse")
+```
+
+```{r}
+library("skimr")
+```
+
+#### Upload 12 datasets for each month of 2023
+```{r}
+for (i in 301:312) {
+  load(paste0("RData_CleanBike\\CleanBike", i, ".RData"))
+}
+```
+
+#### Bind 12 months dataset into a single data frame
+```{r}
+data2023 <- bind_rows(data301, data302, data303, data304, data305, data306, data307, data308, data309, data310, data311, data312)
+```
+
+#### Detailed combined dataset observation
+```{r}
+skim_without_charts(data2023)
+```
+
+### Plot 1. Average trip duration for members vs casuals combined
+#### Group by month, member_casual, rideable_type & calc. average trip duration
+```{r}
+avg_dur1 <- data2023 %>%
+  mutate(month = format(started_at, "%B")) %>%  # Extract month from started_at column
+  group_by(month, member_casual) %>%
+  summarise(avg_dur1 = mean(ride_length), .groups = 'drop')
+```
+
+#### Define colors for each value of member_casual
+```{r}
+color_palette1 <- c("#D74B76", "#FAA300")
+```
+
+#### Convert 'month' to factor with custom levels in the desired order
+```{r}
+avg_dur1$month <- factor(avg_dur1$month, levels = c(
+  "January", "February", "March", "April", "May", "June", 
+  "July", "August", "September", "October", "November", "December"
+))
+```
+
+```{r}
+ggplot(avg_dur1, aes(x = month, y = avg_dur1, fill = member_casual)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.8), width = 0.6) +
+  scale_fill_manual(values = color_palette1) +
+  labs(y = "Trip duration in minutes", title = "Average trip duration - members vs casuals combined") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+### Plot2. Average trip duration & all types of bike users.
+#### Group by the combination of all values from member_casual and rideable_type
+```{r}
+avg_dur2 <- data2023 %>%
+  mutate(month = format(started_at, "%B")) %>%  
+  group_by(month, type_of_users = paste(member_casual, rideable_type)) %>%
+  summarise(avg_dur2 = mean(ride_length), .groups = 'drop')
+```
+
+#### Define colors for each combination of member_casual and rideable_type
+```{r}
+color_palette2 <- c("#e25822", "#008000", "#ffa07a", "#b2ec5d")
+```
+
+#### Convert 'month' to factor with custom levels in the desired order
+```{r}
+avg_dur2$month <- factor(avg_dur2$month, levels = c(
+  "January", "February", "March", "April", "May", "June", 
+  "July", "August", "September", "October", "November", "December"))
+```
+
+```{r}
+ggplot(avg_dur2, aes(x = month, y = avg_dur2, fill = type_of_users)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.8), width = 0.6) +
+  scale_fill_manual(values = color_palette2) +
+  labs(y = "Average duration in minutes", title = "Trip duration for all types of users") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+### Plot3. Average trip duration for classic_bike between members & casuals.
+#### Group by the combination of classic_bike with member_casual
+```{r}
+avg_dur3 <- data2023 %>%
+  mutate(month = format(started_at, "%B"),
+         classic_bike_users = case_when(
+           member_casual == "member" & rideable_type == "classic_bike" ~ "member_classic",
+           member_casual == "casual" & rideable_type == "classic_bike" ~ "casual_classic")) %>%  
+  group_by(month, classic_bike_users) %>%
+  summarise(avg_dur3 = mean(ride_length), .groups = 'drop') %>% 
+  filter(!is.na(classic_bike_users))
+```
+
+#### Define color palette
+```{r}
+color_palette3 <- c("#e25822", "#ffa07a")
+```
+
+#### Convert 'month' to factor with custom levels in the desired order
+```{r}
+avg_dur3$month <- factor(avg_dur3$month, levels = c(
+  "January", "February", "March", "April", "May", "June", 
+  "July", "August", "September", "October", "November", "December"))
+```
+
+```{r}
+ggplot(avg_dur3, aes(x = month, y = avg_dur3, fill = classic_bike_users)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.8), width = 0.6) +
+  scale_fill_manual(values = color_palette3) +
+  labs(y = "Average duration in minutes", title = "Classic bike duration  - members vs casuals") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+### Plot4. Average trip duration for electric_bike between members & casuals.
+#### Group by the combination of electric_bike with member_casual
+```{r}
+avg_dur4 <- data2023 %>%
+  mutate(month = format(started_at, "%B"),
+         electric_bike_users = case_when(
+           member_casual == "member" & rideable_type == "electric_bike" ~ "member_electric",
+           member_casual == "casual" & rideable_type == "electric_bike" ~ "casual_electric")) %>%  
+  group_by(month, electric_bike_users) %>%
+  summarise(avg_dur4 = mean(ride_length), .groups = 'drop') %>% 
+  filter(!is.na(electric_bike_users))
+```
+
+#### Define color palette
+```{r}
+color_palette4 <- c("#008000", "#b2ec5d")
+```
+
+#### Convert 'month' to factor with custom levels in the desired order
+```{r}
+avg_dur4$month <- factor(avg_dur4$month, levels = c(
+  "January", "February", "March", "April", "May", "June", 
+  "July", "August", "September", "October", "November", "December"))
+```
+
+```{r}
+ggplot(avg_dur4, aes(x = month, y = avg_dur4, fill = electric_bike_users)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.8), width = 0.6) +
+  scale_fill_manual(values = color_palette4) +
+  labs(y = "Average duration in minutes", title = "Electric bike trip duration  - members vs casuals") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+### Plot5. Trip count for classic_bike between members & casuals.
+#### Group by the combination of classic_bike with member_casual
+```{r}
+count_trips1 <- data2023 %>%
+  mutate(month = format(started_at, "%B"),
+         classic_bike_users = case_when(
+           member_casual == "member" & rideable_type == "classic_bike" ~ "member_classic",
+           member_casual == "casual" & rideable_type == "classic_bike" ~ "casual_classic")) %>%  
+  group_by(month, classic_bike_users) %>%
+  summarise(count_trips1 = n(), .groups = 'drop') %>% 
+  filter(!is.na(classic_bike_users))
+```
+
+#### Convert 'month' to factor with custom levels in the desired order
+```{r}
+count_trips1$month <- factor(count_trips1$month, levels = c(
+  "January", "February", "March", "April", "May", "June", 
+  "July", "August", "September", "October", "November", "December"))
+```
+
+```{r}
+ggplot(count_trips1, aes(x = month, y = count_trips1, 
+                         fill = classic_bike_users)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.8),
+  width = 0.6) +
+  scale_fill_manual(values = color_palette3) +
+  labs(title = "Classic bike trips count  - members vs casuals", y = "Trips count") +
+  theme_minimal() +
+   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+### Plot6. Trip count for electric_bike between members & casuals.
+#### Group by the combination of electric_bike with member_casual
+```{r}
+count_trips2 <- data2023 %>%
+  mutate(month = format(started_at, "%B"),
+         electric_bike_users = case_when(
+           member_casual == "member" & rideable_type == "electric_bike" ~ "member_electric",
+           member_casual == "casual" & rideable_type == "electric_bike" ~ "casual_electric")) %>%  
+  group_by(month, electric_bike_users) %>%
+  summarise(count_trips2 = n(), .groups = 'drop') %>% 
+  filter(!is.na(electric_bike_users))
+```
+
+#### Convert 'month' to factor with custom levels in the desired order
+```{r}
+count_trips2$month <- factor(count_trips2$month, levels = c(
+  "January", "February", "March", "April", "May", "June", 
+  "July", "August", "September", "October", "November", "December"))
+```
+
+```{r}
+ggplot(count_trips2, aes(x = month, y = count_trips2, 
+                         fill = electric_bike_users)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.8),
+  width = 0.6) +
+  scale_fill_manual(values = color_palette4) +
+  labs(title = "Electric bike trips count  - members vs casuals", y = "Trips count") +
+  theme_minimal() +
+   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+### Plot 7. Trip count for weekdays between members & casuals.
+#### Group by the combination of day_of_week with member_casual
+```{r}
+count_trips7 <- data2023 %>%
+  group_by(day_of_week, member_casual) %>%
+  summarise(count_trips7 = n(), .groups = 'drop') %>% 
+  filter(!is.na(member_casual))
+```
+
+#### Convert 'day_of_week' to factor with custom levels in the desired order
+```{r}
+count_trips7$day_of_week <- factor(count_trips7$day_of_week, levels = c(
+  "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"))
+```
+
+```{r}
+ggplot(count_trips7, aes(x = day_of_week, y = count_trips7, 
+                         fill = member_casual)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.8),
+  width = 0.6) +
+  scale_fill_manual(values = color_palette1) +
+  labs(title = "Weekdays trip count - members vs casuals", y = "Number of trips") +
+  theme_minimal() +
+   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, hjust=1))
+```
+
+### Plot 8. Duration for weekdays between members & casuals.
+```{r}
+day_dur8 <- data2023 %>%
+  group_by(day_of_week, member_casual) %>%
+  summarise(day_dur8 = mean(ride_length), .groups = 'drop') %>% 
+  filter(!is.na(member_casual))
+```
+
+#### Convert 'day_of_week' to factor with custom levels in the desired order
+```{r}
+day_dur8$day_of_week <- factor(day_dur8$day_of_week, levels = c(
+  "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"))
+```
+
+```{r}
+ggplot(day_dur8, aes(x = day_of_week, y = day_dur8, 
+                         fill = member_casual)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.8),
+  width = 0.6) +
+  scale_fill_manual(values = color_palette1) +
+  labs(title = "Weekdays trip duration - members vs casuals", y = "Average duration in minutes") +
+  theme_minimal() +
+   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, hjust=1))
+```
+
+### Plot 9. Percentiles of trip duration for all riders.
+#### Define the percentiles with smaller increments
+```{r}
+percentiles1 <- seq(0, 1, by = 0.01)
+values1 <- quantile(data2023$ride_length, probs = percentiles1)
+```
+
+```{r}
+plot(percentiles1 * 100, values1, type = "o", 
+     xlab = "Percentiles", ylab = "Minutes", 
+     main = "Percentiles of trip duration for all riders.")
+```
+
+### Actual percentiles of trip duration for casuals:
+#### Define the percentiles with smaller increments
+```{r}
+percentiles2 <- seq(0.97, 1, by = 0.005)
+values2 <- quantile(subset(data2023, member_casual == "casual")$ride_length, 
+                    probs = percentiles2)
+```
+
+#### Create a data frame with percentiles and values
+```{r}
+perc_casual2 <- data.frame(Percentile = percentiles2, Value = values2)
+```
+
+#### Print the data frame for casuals
+```{r}
+print(perc_casual2)
+```
+
+### Percentiles of trip duration for casual riders, from 60% to 100%."
+```{r}
+percentiles3 <- seq(0.6, 1, by = 0.05)
+values3 <- quantile(subset(data2023, member_casual == "casual")$ride_length, 
+                    probs = percentiles3)
+```
+
+#### Create a data frame with percentiles and values
+```{r}
+perc_casual3 <- data.frame(Percentile = percentiles3, Value = values3)
+```
+
+#### Print the data frame for casual riders
+```{r}
+print(perc_casual3)
+```
+
+### Plot 10. Trip duration 0-60 min. in percentiles for casuals
+#### Define the percentiles with smaller increments
+```{r}
+percentiles4 <- seq(0, 1, by = 0.02)
+values4 <- quantile(subset(data2023, member_casual == "casual")$ride_length, 
+                    probs = percentiles4)
+```
+
+```{r}
+plot(percentiles4 * 100, values4, type = "o", 
+     xlab = "Percentiles", ylab = "Minutes", 
+     main = "Percentiles of duration for casuals, 0-80 min.",
+     ylim = c(0, 80))
+grid(nx = 10, ny = 10, lty = 1, col = "gray", lwd = 1)
+```
+
+### Actual percentiles of trip duration for members:
+#### Define the percentiles with smaller increments
+```{r}
+percentiles5 <- seq(0.97, 1, by = 0.005)
+values5 <- quantile(subset(data2023, member_casual == "member")$ride_length, 
+                    probs = percentiles5)
+```
+
+#### Create a data frame with percentiles and values
+```{r}
+perc_member5 <- data.frame(Percentile = percentiles5, Value = values5)
+```
+
+#### Print the data frame for members
+```{r}
+print(perc_member5)
+```
+
+### Plot 11. Trip duration with data labels for all riders by quarters.
+#### Define a function to convert month to quarter
+```{r}
+month_to_quarter <- function(month) {
+  case_when(
+    month %in% c("January", "February", "March") ~ "Q1",
+    month %in% c("April", "May", "June") ~ "Q2",
+    month %in% c("July", "August", "September") ~ "Q3",
+    TRUE ~ "Q4"
+  )
+}
+```
+
+#### Aggregate data by quarter
+```{r}
+avg_dur_quarter <- data2023 %>%
+  mutate(month = format(started_at, "%B")) %>%
+  mutate(quarter = month_to_quarter(month)) %>%
+  group_by(quarter, type_of_users = paste(member_casual, rideable_type)) %>%
+  summarise(avg_dur_quarter = mean(ride_length), .groups = 'drop')
+```
+
+```{r}
+ggplot(avg_dur_quarter, aes(x = quarter, y = avg_dur_quarter, fill = type_of_users, label = round(avg_dur_quarter, 1 ))) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.9), width = 0.8) +
+  geom_text(position = position_dodge(width = 1), vjust = -0.3) +
+  scale_fill_manual(values = color_palette2) +
+  labs(y = "Minutes", title = "Average trip duration by quarters") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5)) +
+  guides(fill = guide_legend(title = "User Type"))
+```
+
+### Plot 12. Pie chart for trip number of members vs casuals in %.
+#### Grouping & aggregation
+```{r}
+data2023_pie1 <- data2023 %>%
+  group_by(member_casual) %>%
+  summarise(count = n()) %>%
+  mutate(percentage = count / sum(count) * 100)
+```
+
+```{r}
+ggplot(data2023_pie1, aes(x = "", y = percentage, fill = member_casual)) +
+  geom_bar(width = 1, stat = "identity") +
+  geom_text(aes(label = paste(member_casual, sprintf("%.1f%%", percentage))), position = position_stack(vjust = 0.5), size = 5) +
+  coord_polar(theta = "y") +
+  labs(fill = "Customer Type") +
+  ggtitle("Proportion of trips count - members vs casuals in %") +
+  theme_minimal() +
+  theme(legend.position = "right",
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.title = element_blank(),
+        panel.grid = element_blank())
+```
+
+### Plot 13. Pie chart for trip number of all riders in %.
+#### Grouping & aggregation
+```{r}
+trips_count <- data2023 %>%
+  group_by(type_of_users = paste(member_casual, rideable_type)) %>%
+  summarise(count = n(), .groups = 'drop')
+```
+
+```{r}
+ggplot(trips_count, aes(x = "", y = count, fill = type_of_users, label = sprintf("%.1f%%", count/sum(count)*100))) +
+  geom_bar(width = 1, stat = "identity") +
+  coord_polar(theta = "y") +
+  scale_fill_manual(values = color_palette2) +
+  labs(fill = "User Type") +
+  ggtitle("Proportion of trips count for all riders") +
+  theme_void() +
+  geom_text(position = position_stack(vjust = 0.5), size = 5) +
+  theme(legend.position = "right",
+        legend.title = element_blank())
+```
+
+### Plot 14. Trip duration with data labels for all riders by seasons.
+#### Define a function to convert month to season 
+```{r}
+month_to_season <- function(month) {
+  case_when(
+    month %in% c("January", "February", "March", "November", "December") ~ "November to March ",
+        TRUE ~ "April to October"
+  )
+}
+```
+
+#### Aggregate data by seasons
+```{r}
+avg_dur_season <- data2023 %>%
+  mutate(month = format(started_at, "%B")) %>%
+  mutate(season = month_to_season(month)) %>%
+  group_by(season, type_of_users = paste(member_casual, rideable_type)) %>%
+  summarise(avg_dur_season = mean(ride_length), .groups = 'drop')
+```
+
+```{r}
+ggplot(avg_dur_season, aes(x = season, y = avg_dur_season, fill = type_of_users, label = round(avg_dur_season, 1 ))) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.9), width = 0.8) +
+  geom_text(position = position_dodge(width = 1), vjust = -0.3) +
+  scale_fill_manual(values = color_palette2) +
+  labs(y = "Average trip duration in minutes", title = "Average trip duration by seasons of all riders") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5)) +
+  guides(fill = guide_legend(title = "User Type"))
+```
+
+
+### Plot 15. Trip count with data labels for all riders by seasons.
+#### Define a function to convert month to season 
+```{r}
+month_to_season <- function(month) {
+  case_when(
+    month %in% c("January", "February", "March", "November", "December") ~ "November to March",
+        TRUE ~ "April to October"
+  )
+}
+```
+
+#### Aggregate data by seasons
+```{r}
+tr_count_season <- data2023 %>%
+  mutate(month = format(started_at, "%B")) %>%
+  mutate(season = month_to_season(month)) %>%
+  group_by(season, type_of_users = paste(member_casual, rideable_type)) %>%
+  summarise(tr_count_season = n(), .groups = 'drop')
+```
+
+```{r}
+ggplot(tr_count_season, aes(x = season, y = tr_count_season, fill = type_of_users, label = round(tr_count_season, 0 ))) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.9), width = 0.8) +
+  geom_text(position = position_dodge(width = 1.1), vjust = -0.4) +
+  scale_fill_manual(values = color_palette2) +
+  labs(y = "Trips count", title = "Trips count by seasons for all riders") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5)) +
+  guides(fill = guide_legend(title = "User Type"))
+```
+
+
+
