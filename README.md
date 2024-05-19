@@ -20,11 +20,12 @@
 
 #### LinkedIn “Excel Tips Weekly” Course (2022): Completed 300 lessons for an extensive training of Excel
 
-#### Relevent Experience:
+### Relevent Experience:
 - Authored assembly work instructions using VKS software and provided overall quality control
 
-#### Project: Chicago Cyclistics Case Study
+### Project:
+![Chicago Cyclistics Case Study](/Analysis Description.pdf)
 
-#### Objective:
+### Objective:
 - Transitioning from a career in the electronic industry and seeking a full-time role in the field of entry-level analytics
 
