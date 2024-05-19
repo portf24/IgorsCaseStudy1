@@ -8,6 +8,7 @@
 - 8 Courses Completed
 [Certificate](https://www.coursera.org/share/2ee91bdc4a89b821fbb89e80e85a6241)
 
+![Coursera Badge](/Images/google_badge.png)
 
 #### Genesee Community College Courses (2023):
 - Microcomputer Applications (Word, Excel, Access, Power Point)
