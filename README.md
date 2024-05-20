@@ -24,8 +24,8 @@
 - Authored assembly work instructions using VKS software and provided overall quality control
 
 ### My Project: Chicago Cyclistics Case Study
-
-[User Guide](Analysis%20Description.pdf)
+#### Case study: How does a bike-share navigate speedy success?
+[Analysis Description](Analysis%20Description.pdf)
 
 ### Objective:
 - Transitioning from a career in the electronic industry and seeking a full-time role in the field of entry-level analytics
