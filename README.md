@@ -25,7 +25,7 @@
 
 ### My Project: Chicago Cyclistics Case Study
 
-[User Guide](Analysis Description.pdf)
+[User Guide](Analysis%20Description.pdf)
 
 ### Objective:
 - Transitioning from a career in the electronic industry and seeking a full-time role in the field of entry-level analytics
