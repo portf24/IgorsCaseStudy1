@@ -10,11 +10,11 @@
 
 ![Coursera Badge](/Images/google_badge.png)
 
-#### Genesee Community College Courses (2023):
+### Genesee Community College Courses (2023):
 - Microcomputer Applications (Word, Excel, Access, Power Point)
 - Introduction to Financial Accounting
 
-#### Udemy Certificate for Microsoft Excel Course (2021):  
+### Udemy Certificate for Microsoft Excel Course (2021):  
 - Completed “From Beginner to Advanced”
 [Certificate](https://www.udemy.com/certificate/UC-b6f25bf5-7a81-440d-9fb2-c4453ca03353/)
 
@@ -22,12 +22,14 @@
 
 ## Relevent Experience:
 ### Worked for Connection Technology Center
-- Authored assembly work instructions using VKS software and provided overall quality control
+- Authored assembly work instructions using VKS software and provided overall quality control;
+- Showed excellent leadership skills;
+- Effectively implemented and communicated daily workflow to fellow team members, increasing productivity and quality of products.
 
 ### Project: Chicago Cyclistics Case Study
 #### Case study: How does a bike-share navigate speedy success?
-[Project Content](Project%20content.pdf)  
-[Analysis Description](Analysis%20Description.pdf)
+[Analysis Description](Analysis%20Description.pdf)  
+[Project Content](Project%20content.pdf)
 
 ### Objective:
 #### Transitioning from a career in the electronic industry and seeking a full-time role in the field of entry-level analytics
