@@ -21,7 +21,7 @@
 #### LinkedIn “Excel Tips Weekly” Course (2022): Completed 300 lessons for an extensive training in Excel
 
 ## Relevent Experience:
-### Worked for Connection Technology Center
+### Job: Connection Technology Center
 - Authored assembly work instructions using VKS software and provided overall quality control;
 - Showed excellent leadership skills;
 - Effectively implemented and communicated daily workflow to fellow team members, increasing productivity and quality of products.
@@ -31,6 +31,6 @@
 [Analysis Description](Analysis%20Description.pdf)  
 [Project Content](Project%20content.pdf)
 
-### Objective:
-#### Transitioning from a career in the electronic industry and seeking a full-time role in the field of entry-level analytics
+## Objective:
+### Transitioning from a career in the electronic industry and seeking a full-time role in the field of entry-level analytics
 
