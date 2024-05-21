@@ -25,7 +25,7 @@
 
 ### My Project: Chicago Cyclistics Case Study
 #### Case study: How does a bike-share navigate speedy success?
-[Project Content](Project%20content)
+[Project Content](Project%20content.pdf)
 [Analysis Description](Analysis%20Description.pdf)
 
 ### Objective:
