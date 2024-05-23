@@ -325,7 +325,7 @@ perc_casual3 <- data.frame(Percentile = percentiles3, Value = values3)
 print(perc_casual3)
 ```
 
-### Plot 10. Trip duration 0-60 min. in percentiles for casuals
+### Plot 10. Trip duration 0-80 min. in percentiles for casuals
 #### Define the percentiles with smaller increments
 ```{r}
 percentiles4 <- seq(0, 1, by = 0.02)
