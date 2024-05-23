@@ -32,5 +32,5 @@
 [Project Content](Project%20content.pdf)
 
 ## Objective:
-### Transitioning from a career in the electronic industry and seeking a full-time role in the field of entry-level analytics
+- Transitioning from a career in the electronic industry and seeking a full-time role in the field of entry-level analytics
 
