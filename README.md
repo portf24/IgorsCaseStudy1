@@ -2,7 +2,7 @@
 
 ## Skills:
 
-### R programming, SQL, Big Query, Tableau, Google Sheets
+### R programming, SQL, Big Query, Tableau, Google Sheets,
 ### Microsoft Applications: Word, Excel, Access, Power Point
 
 ## Education:
