@@ -1,6 +1,8 @@
 # Junior Data Analyst
 
-## Skills: Excel, R programming, SQL, Big Query, Tableau, Google Sheets, PowerPoint
+## Skills:
+
+### Excel, R programming, SQL, Big Query, Tableau, Google Sheets, PowerPoint
 
 ## Education:
 
