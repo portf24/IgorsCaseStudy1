@@ -1,6 +1,6 @@
 # Junior Data Analyst
 
-## Skills: Excel, SQL, Big Query, Tableau, R programming
+## Skills: Excel, R programming, SQL, Big Query, Tableau, Google Sheets, PowerPoint
 
 ## Education:
 
@@ -32,5 +32,6 @@
 [Project Content](Project%20content.pdf)
 
 ## Objective:
-- Transitioning from a career in the electronic industry and seeking a full-time role in the field of entry-level analytics
+- Transitioning from a career in the electronic industry and seeking a full-time role in the field of entry-level analytics to take up challenging and 
+diversified projects.
 
