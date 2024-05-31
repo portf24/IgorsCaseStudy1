@@ -23,7 +23,7 @@
 
 #### LinkedIn “Excel Tips Weekly” Course (2022): Completed 300 lessons for an extensive training in Excel
 
-## Relevent Experience:
+## Relevant Experience:
 ### Job: Connection Technology Center
 - Authored assembly work instructions using VKS software and provided overall quality control;
 - Showed excellent leadership skills;
