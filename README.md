@@ -45,6 +45,6 @@
 
 ### Contact
 
-#### Email: vyssoc01@gmail.com
+#### Email: igor.vysochan@outlook.com 
 #### [LinkdIn](https://www.linkedin.com/in/igor-vysochanskyy-7ab4922a2/) 
 
