@@ -44,6 +44,6 @@
 - Created cable assembly procedures to enhance product quality and ensured quality control.
 
 ### Contact
-
+#### Email igor.vysochan@outlook.com
 #### [LinkdIn Link](https://www.linkedin.com/in/igor-vysochanskyy-7ab4922a2/) 
 
