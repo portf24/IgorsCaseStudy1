@@ -8,13 +8,14 @@
 
 ### R programming, SQL, Big Query, Tableau, Google Sheets,
 ### Microsoft Applications: Word, Excel, Access, Power Point
-### For a comprehensive overview of my skills and experiences, please view my [resume](Igors_Resume.pdf)
+#### For a comprehensive overview of my skills and experiences, please use this link - [resume](Igors_Resume.pdf)
 
-### Project: Chicago Cyclistics Case Study
+## Project:
+#### Chicago Cyclistics Case Study
 #### Exploring: How does a bike-share navigate speedy success?
 - For the project, I utilized RStudio for data cleaning, aggregation, statistical analysis, and visualization while Excel was employed for data observation and additional visualization tasks.
 
-[Analysis Description](Analysis%20Description.pdf)
+[Analysis Description](Analysis%20Description.pdf) 
 [Project Content](Project%20content.pdf)
 
 ## Education:
