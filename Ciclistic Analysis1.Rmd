@@ -9,7 +9,7 @@ output:
 
 ### This R Markdown analyzes differences between members & casual bike users.
 #### Install R packages & their libraries to enable subsequent operations.
-#### If using RStudio 2024.04.1 run libraries only.
+#### Depending on your RStudio version, packages may be pre-installed, or you might need to install them manually or via a clickable link that appears above the script
 ```{r, message=FALSE}
 library("tidyverse")
 ```

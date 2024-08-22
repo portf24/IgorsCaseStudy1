@@ -9,7 +9,8 @@ output:
 
 ### This R Markdown template cleans the April 2023 dataset and can be applied to other 2023 datasets.
 #### Install R packages & their libraries to enable subsequent operations.
-#### If using RStudio 2024.04.1 run libraries only.
+
+#### Depending on your RStudio version, packages may be pre-installed, or you might need to install them manually or via a clickable link that appears above the script.
 ```{r, message=FALSE}
 library("tidyverse")
 ```
@@ -24,7 +25,7 @@ library(openxlsx)
 
 #### URL for all 2023 datasets: https://divvy-tripdata.s3.amazonaws.com/index.html
 #### If using as a template, change data frame names & directory accordinly
-#### Upload original 202304-divvy-tripdata.csv (Only "202304..." is a part of repository)
+#### Upload original 202304-divvy-tripdata.csv (Only "202304..." is a part of GitHub repository)
 ```{r}
 tr304_orig <- read_csv("202304-divvy-tripdata.csv")
 ```
@@ -115,7 +116,7 @@ skim_without_charts(trim304)
 - Delete the "ended_at" column as not relevant anymore.
 - Perform analysis by using Excel Pivot Table Charts.
 ```{r}
-write.xlsx(trim304, "E:\\Bike project\\Clean301-12\\Clean304.xlsx")
+write.xlsx(trim304, "Clean301-12\\Clean304.xlsx")
 ```
 
 #### Final modification after analysis in Exel:
@@ -147,5 +148,5 @@ glimpse(data304)
 
 #### Save modified and cleaned dataset as .RData object
 ```{r}
-save(data304, file = "CleanBike304.RData")
+save(data304, file = "RData_CleanBike\\CleanBike304.RData")
 ```
