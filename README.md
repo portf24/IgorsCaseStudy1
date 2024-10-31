@@ -35,7 +35,10 @@
 - Completed “From Beginner to Advanced”
 [Certificate](https://www.udemy.com/certificate/UC-b6f25bf5-7a81-440d-9fb2-c4453ca03353/)
 
-#### LinkedIn “Excel Tips Weekly” Course (2022): Completed 300 lessons for an extensive training in Excel
+#### LinkedIn Certificates: 
+- “Excel for Sales Professionals” [Link](https://www.linkedin.com/learning/certificates/8d05b80f3dd289b8c062ea31f8ade957466f9c7ba8ed59176da880b364a14793?trk=share_certificate)
+- “Microsoft Access Essential Training” [Link](https://www.linkedin.com/learning/certificates/2bc7dddad6ecbb81da5c467e906f51d1dd207692657a66caeef706278097b2fe?trk=share_certificate)
+- “Excel Tips Weekly”: Completed 300 lessons for an extensive training in Excel
 
 ## Relevant Experience:
 ### Job: Connection Technology Center
