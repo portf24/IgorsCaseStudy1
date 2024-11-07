@@ -491,8 +491,8 @@ tr_count_season <- data2023 %>%
 
 ```{r}
 ggplot(tr_count_season, aes(x = season, y = tr_count_season, fill = type_of_users, label = round(tr_count_season, 0 ))) +
-  geom_bar(stat = "identity", position = position_dodge(width = 0.9), width = 0.8) +
-  geom_text(position = position_dodge(width = 1.1), vjust = -0.4) +
+  geom_bar(stat = "identity", position = position_dodge(width = 1.0), width = 0.8) +
+  geom_text(position = position_dodge(width = 1.0), vjust = -0.4) +
   scale_fill_manual(values = color_palette2) +
   labs(y = "Trips count", title = "Trips count by seasons for all riders") +
   theme_minimal() +
