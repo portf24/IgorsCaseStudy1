@@ -13,6 +13,8 @@
 ## Project:
 ### Chicago Cyclistics Case Study
 #### Exploring: How does a bike-share navigate speedy success?
+##### The goal of this analysis was to find marketing strategies for increasing the number of annual memberships.
+##### This task involved analyzing differences and trends in bike usage between members and casual riders, focusing on the number of trips, trip duration, and price. R programming was used to visualize these trends with ggplot() and percentile-based analyses to highlight key insights.
 - For the project, I utilized RStudio for data cleaning, aggregation, statistical analysis, and visualization, while Excel, including PivotTables and charts, was employed for data observation, additional research, and visualization tasks.
 - The entire project link is under the photo
 - Other links: [Analysis Description](Analysis%20Description.pdf); [PowerPoint](Case%201%20PPT.pdf); [Project Content](Project%20content.pdf); 
