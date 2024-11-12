@@ -14,10 +14,10 @@
 ### Chicago Cyclistics Case Study
 #### Exploring: How does a bike-share navigate speedy success?
 - For the project, I utilized RStudio for data cleaning, aggregation, statistical analysis, and visualization while Excel was employed for data observation and additional visualization tasks.
-
-[Analysis Description](Analysis%20Description.pdf)  
-
-[Project Content](Project%20content.pdf)
+- The entire project link is under the photo
+#### Other links:
+[Analysis Description](Analysis%20Description.pdf); [PowerPoint](Case%201%20PPT.pdf); [Project Content](Project%20content.pdf); 
+- Run code and verify functionality on [Kaggle](https://www.kaggle.com/code/igorvysochanskyy/bike-share-success)
 
 ## Education:
 
