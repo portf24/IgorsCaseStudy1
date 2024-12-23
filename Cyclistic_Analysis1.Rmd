@@ -1,5 +1,5 @@
 ---
-title: "Project for Ciclistics - Analysis"
+title: "Project for 'Cyclistic': Analysis Phase"
 author: "Igor Vysochanskyy"
 date: "2024-04-30"
 output:
@@ -9,7 +9,7 @@ output:
 
 ### This R Markdown analyzes differences between members & casual bike users.
 #### Install R packages & their libraries to enable subsequent operations.
-#### Depending on your RStudio version, packages may be pre-installed, or you might need to install them manually or via a clickable link that appears above the script
+#### Depending on your RStudio version, packages may be pre-installed, or you might need to install them manually.
 ```{r, message=FALSE}
 library("tidyverse")
 ```
@@ -44,7 +44,7 @@ avg_dur1 <- data2023 %>%
   summarise(avg_dur1 = mean(ride_length), .groups = 'drop')
 ```
 
-#### Define colors for each value of member_casual
+#### Define color palette 1
 ```{r}
 color_palette1 <- c("#D74B76", "#FAA300")
 ```
@@ -75,7 +75,7 @@ avg_dur2 <- data2023 %>%
   summarise(avg_dur2 = mean(ride_length), .groups = 'drop')
 ```
 
-#### Define colors for each combination of member_casual and rideable_type
+#### Define color palette 2 for each combination of user & bike type
 ```{r}
 color_palette2 <- c("#e25822", "#008000", "#ffa07a", "#b2ec5d")
 ```
@@ -109,7 +109,7 @@ avg_dur3 <- data2023 %>%
   filter(!is.na(classic_bike_users))
 ```
 
-#### Define color palette
+#### Define color palette 3
 ```{r}
 color_palette3 <- c("#e25822", "#ffa07a")
 ```
@@ -143,7 +143,7 @@ avg_dur4 <- data2023 %>%
   filter(!is.na(electric_bike_users))
 ```
 
-#### Define color palette
+#### Define color palette 4
 ```{r}
 color_palette4 <- c("#008000", "#b2ec5d")
 ```
@@ -401,6 +401,19 @@ data2023_pie1 <- data2023 %>%
   mutate(percentage = count / sum(count) * 100)
 ```
 
+#### Calculation of the ratio of casuals to members from the aggregated data
+```{r}
+# Ensure data2023_pie1 has the correct format
+casual_count <- data2023_pie1 %>% filter(member_casual == "casual") %>% pull(count)
+member_count <- data2023_pie1 %>% filter(member_casual == "member") %>% pull(count)
+
+# Calculate the ratio
+unweighted_yearly_ratio <- casual_count / member_count
+unweighted_yearly_ratio
+```
+
+
+
 ```{r}
 ggplot(data2023_pie1, aes(x = "", y = percentage, fill = member_casual)) +
   geom_bar(width = 1, stat = "identity") +
@@ -442,8 +455,8 @@ ggplot(trips_count, aes(x = "", y = count, fill = type_of_users, label = sprintf
 ```{r}
 month_to_season <- function(month) {
   case_when(
-    month %in% c("January", "February", "March", "November", "December") ~ "November to March ",
-        TRUE ~ "April to October"
+    month %in% c("January", "February", "March", "November", "December") ~ "Cold Season",
+        TRUE ~ "Bike Season"
   )
 }
 ```
@@ -462,7 +475,7 @@ ggplot(avg_dur_season, aes(x = season, y = avg_dur_season, fill = type_of_users,
   geom_bar(stat = "identity", position = position_dodge(width = 0.9), width = 0.8) +
   geom_text(position = position_dodge(width = 1), vjust = -0.3) +
   scale_fill_manual(values = color_palette2) +
-  labs(y = "Average trip duration in minutes", title = "Average trip duration by seasons of all riders") +
+  labs(x = NULL, y = "Average trip duration in minutes", title = "Average trip duration by seasons of all riders") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5)) +
   guides(fill = guide_legend(title = "User Type"))
@@ -474,8 +487,8 @@ ggplot(avg_dur_season, aes(x = season, y = avg_dur_season, fill = type_of_users,
 ```{r}
 month_to_season <- function(month) {
   case_when(
-    month %in% c("January", "February", "March", "November", "December") ~ "November to March",
-        TRUE ~ "April to October"
+    month %in% c("January", "February", "March", "November", "December") ~ "Cold Season",
+        TRUE ~ "Bike Season"
   )
 }
 ```
@@ -494,11 +507,199 @@ ggplot(tr_count_season, aes(x = season, y = tr_count_season, fill = type_of_user
   geom_bar(stat = "identity", position = position_dodge(width = 1.0), width = 0.8) +
   geom_text(position = position_dodge(width = 1.0), vjust = -0.4) +
   scale_fill_manual(values = color_palette2) +
-  labs(y = "Trips count", title = "Trips count by seasons for all riders") +
+  labs(x = NULL, y = "Trips count", title = "Trips count by seasons for all riders") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5)) +
   guides(fill = guide_legend(title = "User Type"))
 ```
 
+### Plot 16. Weekly, Monthly, Yearly, Bike and Cold seasons ratios between Casuals and Members.
+#### Create a week column and calculate the weekly ratio
+```{r}
+weekly_counts <- data2023 %>%
+  mutate(week = floor_date(started_at, unit = "week")) %>%  # Create 'week' column
+  group_by(week, member_casual) %>%
+  summarise(count = n(), .groups = "drop") %>%
+  pivot_wider(names_from = member_casual, values_from = count, values_fill = 0) %>%
+  mutate(ratio = casual / member)  # Calculate the ratio
+```
 
+#### Calculate monthly averages from weekly_counts 
+```{r}
+monthly_avg <- weekly_counts %>%
+  mutate(month = floor_date(week, unit = "month")) %>%
+  group_by(month) %>%
+  summarise(monthly_ratio_avg = mean(ratio, na.rm = TRUE), .groups = "drop")
+
+```
+
+#### Calculate the Weighted yearly average based on weeks average
+```{r}
+yearly_avg <- mean(weekly_counts$ratio, na.rm = TRUE)
+yearly_avg
+```
+
+#### Ensure all date-related columns (week and month) are in Date format:
+```{r}
+weekly_counts <- weekly_counts %>%
+  mutate(
+    week = as.Date(week)  # Ensure 'week' is a Date object
+  )
+
+monthly_avg <- monthly_avg %>%
+  mutate(
+    month = as.Date(month)  # Ensure 'month' is a Date object
+  )
+```
+
+#### Group by the months in each range and calculate the averages for the ratio column:
+```{r}
+# Averages for the specified month ranges
+selected_avg <- monthly_avg %>%
+  mutate(
+    range_label = case_when(
+      month >= as.Date("2023-04-01") & month <= as.Date("2023-10-31") ~ "Bike Season",  # April to October
+      month %in% c(as.Date("2023-01-01"), as.Date("2023-02-01"), as.Date("2023-03-01"), 
+                   as.Date("2023-11-01"), as.Date("2023-12-01")) ~ "Cold Season",  # Jan-Mar & Nov-Dec
+      TRUE ~ NA_character_
+    )
+  ) %>%
+  group_by(range_label) %>%
+  summarise(avg = mean(monthly_ratio_avg, na.rm = TRUE), .groups = "drop")
+
+# Extract specific averages into separate objects
+april_oct_avg <- selected_avg %>% filter(range_label == "Bike Season") %>% pull(avg)
+jan_mar_nov_dec_avg <- selected_avg %>% filter(range_label == "Cold Season") %>% pull(avg)
+
+# View averages
+april_oct_avg
+jan_mar_nov_dec_avg
+
+```
+
+#### Plot for Weekly, Monthly, Yearly and 2 seasons ratios
+```{r}
+ggplot(weekly_counts, aes(x = week, y = ratio, color = "Weekly")) +
+  # Weekly ratio line
+  geom_line(linewidth = 0.8) +
+  geom_point(size = 2.2) +
+  
+  # Monthly average line
+  geom_step(data = monthly_avg, aes(x = month, y = monthly_ratio_avg, color = "Monthly"), 
+            linewidth = 1) +
+  geom_point(data = monthly_avg, aes(x = month, y = monthly_ratio_avg), 
+             color = "#e25822", size = 3) +  # Markers for monthly averages
+  
+  # Yearly average line
+  geom_hline(aes(yintercept = yearly_avg, color = "Yearly"), 
+             linewidth = 1, linetype = "dotdash") +
+  
+  # Selected monthly averages
+  geom_hline(data = selected_avg, aes(yintercept = avg, color = range_label), 
+             linetype = "dotted", linewidth = 1) +
+  
+  # Add annotations for averages
+  annotate("text", x = as.Date("2023-12-01"), y = yearly_avg, 
+           label = paste0("Yearly Avg: ", round(yearly_avg, 2)), 
+           hjust = 2.2, vjust = -0.5, color = "#592720", fontface = "plain") +
+  annotate("text", x = as.Date("2023-07-01"), y = april_oct_avg, 
+           label = paste0("Bike Season: ", round(april_oct_avg, 2)), 
+           hjust = 2.1, vjust = -0.5, color = "#ff033e", fontface = "plain") +
+  annotate("text", x = as.Date("2023-03-01"), y = jan_mar_nov_dec_avg, 
+           label = paste0("Cold Season: ", round(jan_mar_nov_dec_avg, 2)), 
+           hjust = -0.9, vjust = -0.5, color = "#0000ff", fontface = "plain") +
+  
+  # Customize labels and legend #50c878
+  labs(
+    title = "Weekly, Monthly, Yearly and 2 seasons ratios",
+        x = NULL,
+        y = "Ratio (Casuals / Members)",
+    color = "Line type:"
+  ) +
+  scale_color_manual(
+    values = c(
+      "Weekly" = "#21abcd", 
+      "Monthly" = "#e25822", 
+      "Yearly" = "#592720",
+      "Bike Season" = "#ff033e",
+      "Cold Season" = "#0000ff"
+    ),
+    breaks = c("Weekly", "Monthly", "Yearly", "Bike Season", "Cold Season"),
+    labels = c("Weekly", "Monthly", "Yearly", "Bike Season", "Cold Season")
+  ) +
+  scale_x_date(
+    date_labels = "%b", 
+    date_breaks = "1 month", 
+    limits = c(as.Date("2023-01-01"), as.Date("2023-12-31"))
+  ) +
+  theme_minimal()
+
+```
+
+#### Create a monthly1_counts dataset with the casual-to-member ratio for each month (Weighted yearly avr. based on month avr.): 
+```{r}
+monthly1_counts <- data2023 %>%
+  mutate(month = floor_date(started_at, unit = "month")) %>%  # Create 'month' column
+  group_by(month, member_casual) %>%  # Group by month and rider type
+  summarise(count = n(), .groups = "drop") %>%  # Count rides for each group
+  pivot_wider(names_from = member_casual, values_from = count, values_fill = 0) %>%  # Pivot to wide format
+  mutate(ratio = casual / member)  # Calculate the ratio for each month
+
+```
+
+#### Weighted (based on month average) yearly average from monthly1_counts (not used for chart)
+```{r}
+yearly_avg_months <- mean(monthly1_counts$ratio, na.rm = TRUE)
+# View averages
+yearly_avg_months
+```
+
+#### Print averages (Numeric value 'unweighted_yearly_ratio' is from the Pie chart aggregation, Plot 12)
+```{r}
+# Create a data frame with renamed variables
+averages_table <- data.frame(
+  Category = c("Bike Season (April-Oct Avg)", 
+               "Cold Season (Jan-Mar & Nov-Dec Avg)", 
+               "Weighted Yearly (Weeks)", 
+               "Weighted Yearly (Months)",
+               "Unweighted Yearly Ratio"),
+  Average = c(april_oct_avg, jan_mar_nov_dec_avg, yearly_avg, yearly_avg_months, unweighted_yearly_ratio)
+)
+
+# Print the table
+print(averages_table)
+
+```
+
+#### Retrieve the numeric values for Casuals only: 1) Number of total trips for each season; 2) Ratio Bike/Cold seasons; 3) Difference of Bike & Cold seasons. (The data frame 'tr_count_season' is from aggregation for Plot 15)
+```{r}
+# 1. Filter for Casuals only and split by season
+casual_season_counts <- tr_count_season %>%
+  filter(str_detect(type_of_users, "casual")) %>%
+  group_by(season) %>%
+  summarise(total_trips = sum(tr_count_season), .groups = "drop")
+
+# 2. Retrieve the total trips for Bike Season and Cold Season
+bike_season_trips <- casual_season_counts %>%
+  filter(season == "Bike Season") %>%
+  pull(total_trips)
+
+cold_season_trips <- casual_season_counts %>%
+  filter(season == "Cold Season") %>%
+  pull(total_trips)
+
+# 3. Calculate the Ratio and Difference
+season_ratio <- bike_season_trips / cold_season_trips  # Ratio Bike Season / Cold Season
+season_difference <- bike_season_trips - cold_season_trips  # Difference Bike Season - Cold Season
+
+# Create a table of results
+results_table <- tibble(
+  Metric = c("Bike Season Trips", "Cold Season Trips", "Ratio (Bike/Cold)", "Difference (Bike - Cold)"),
+  Value = c(bike_season_trips, cold_season_trips, season_ratio, season_difference)
+)
+
+# Print the table
+print(results_table)
+
+```
 
