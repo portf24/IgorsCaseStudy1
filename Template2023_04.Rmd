@@ -1,5 +1,5 @@
 ---
-title: "Project for Ciclistics - Data Cleaning"
+title: "Project for 'Cyclistic': Data Cleaning"
 author: "Igor Vysochanskyy"
 date: "2024-03-31"
 output:
@@ -10,7 +10,7 @@ output:
 ### This R Markdown template cleans the April 2023 dataset and can be applied to other 2023 datasets.
 #### Install R packages & their libraries to enable subsequent operations.
 
-#### Depending on your RStudio version, packages may be pre-installed, or you might need to install them manually or via a clickable link that appears above the script.
+#### Depending on your RStudio version, packages may be pre-installed, or you might need to install them manually.
 ```{r, message=FALSE}
 library("tidyverse")
 ```
@@ -24,8 +24,8 @@ library(openxlsx)
 ```
 
 #### URL for all 2023 datasets: https://divvy-tripdata.s3.amazonaws.com/index.html
-#### If using as a template, change data frame names & directory accordinly
-#### Upload original 202304-divvy-tripdata.csv (Only "202304..." is a part of GitHub repository)
+#### If using as a template, change data frame names & directory accordingly
+#### Upload original 202304-divvy-tripdata.csv (Only "202304...csv" is a part of GitHub repository)
 ```{r}
 tr304_orig <- read_csv("202304-divvy-tripdata.csv")
 ```
@@ -50,7 +50,7 @@ trip304 <- trip304_orig %>%
   filter((!is.na(start_station_name) &  !is.na(end_station_name)) | rideable_type == "electric_bike")
 ```
 
-#### Delete rows in "ride_id" if number of characters is not = 16. (For 2023, "03-04" datasets only)
+#### Delete rows in "ride_id" if number of characters is not = 16. (Use for 2023, "03-04" datasets only)
 ```{r}
 bikeid304 <- trip304[nchar(trip304$ride_id) == 16, ]
 ```
@@ -102,7 +102,7 @@ trim304 <- trip5304[(trip5304$ride_length >= 2 &
 ```{r}
 skim_without_charts(trim304)
 ```
-### Clean Data Description:
+### Clean Data check list:
 - Number of rows = n_unique for ride_id column - no duplicates;
 - Same number of characters (16) in ride_id column;
 - Whitespace and empty cells: 0 in each column;
@@ -120,7 +120,7 @@ write.xlsx(trim304, "Clean301-12\\Clean304.xlsx")
 ```
 
 #### Final modification after analysis in Exel:
-#### Remove rows where rideable_type = "docked_bike". (For 2023, "01-08" datasets only)
+#### Remove rows where rideable_type = "docked_bike". (Use for 2023, "01-08" datasets only)
 ```{r}
 trim_doc304 <- trim304[trim304$rideable_type != "docked_bike", ]
 ```
