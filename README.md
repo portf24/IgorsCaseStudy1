@@ -17,7 +17,7 @@
 ##### This task involved analyzing differences and trends in bike usage between members and casual riders, focusing on the number of trips, trip duration, and price. R programming was used to visualize these trends with ggplot() and percentile-based analyses to highlight key insights.
 - For the project, I utilized RStudio for data cleaning, aggregation, statistical analysis, and visualization, while Excel, including PivotTables and charts, was employed for data observation, additional research, and visualization tasks.
 - The entire project link is under the photo
-- Other links: [Analysis Description](Analysis%20Description.pdf); [PowerPoint](Case%201%20PPT.pdf); [Project Content](Project%20content.pdf); 
+- Other links: [Analysis Description](Analysis%20Description.pdf); [PowerPoint](PowerPoint1.pdf); [Project Content](Project%20content.pdf); 
 - Run code and verify functionality on [Kaggle](https://www.kaggle.com/code/igorvysochanskyy/bike-share-success)
 
 ## Education:
