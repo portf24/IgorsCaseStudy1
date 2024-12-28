@@ -11,7 +11,7 @@
 #### For a comprehensive overview of my skills and experiences, please use this link - [resume](Igors_Resume.pdf)
 
 ## Project:
-### Chicago Cyclistics Case Study
+### Chicago Cyclistic Case Study
 #### Exploring: How does a bike-share navigate speedy success?
 ##### The goal of this analysis was to find marketing strategies for increasing the number of annual memberships.
 ##### This task involved analyzing differences and trends in bike usage between members and casual riders, focusing on the number of trips, trip duration, and price. R programming was used to visualize these trends with ggplot() and percentile-based analyses to highlight key insights.
