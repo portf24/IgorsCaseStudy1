@@ -90,11 +90,11 @@ for (file_name in file_names) {
 #### Example of the column specification returned by the readr::read_csv() is only shown for December, 2023 to prevent cluttering knitted HTML output. 
 - Rows: 224073 (Number of rows is different for each month) Columns: 13
 - Column specification:
-- Delimiter: ","
-- chr  (7): ride_id, rideable_type, start_station_name, 
-- dbl  (4): start_lat, start_lng, end_lat, end_lng
-- dttm (2): started_at, ended_at
-- Downloaded and read: 202312-divvy-tripdata.zip (In this example)
+- Delimiter: ",";
+- chr  (7): ride_id, rideable_type, start_station_name, end_station_name, start_station_id, end_station_id, member_casual;
+- dbl  (4): start_lat, start_lng, end_lat, end_lng;
+- dttm (2): started_at, ended_at;
+- Downloaded and read: 202312-divvy-tripdata.zip (In this example).
 
 #### This column specification and metadata summary will be shown for each month when run the code and is used for initial data observation that allows to see how each column in each month data is formatted.
 
@@ -122,7 +122,7 @@ head(combined_data)
 mid_clean_stage1 <- subset(combined_data, select = c(ride_id, started_at, ended_at, member_casual, rideable_type, start_station_name, end_station_name, start_station_id, end_station_id))
 ```
 
-#### Create a column 'ride_length' to represent the trip duration in minutes rounded to two decimals.
+#### Create a column 'ride_length' to represent the trip duration in minutes rounded to two decimals
 ```{r}
 mid_clean_stage1$ride_length <- round(
   as.numeric(difftime(mid_clean_stage1$ended_at, mid_clean_stage1$started_at, units = "mins")),
@@ -137,7 +137,7 @@ mid_clean_stage1$day_of_week <- format(mid_clean_stage1$started_at, "%a")
 ```
 
 #### Examine the overall structure of the data, including column names, data types, and sample values.
-#### Note: This includes the examination of two newly added columns.
+#### Note: This includes the examination of two newly added columns
 ```{r}
 glimpse(mid_clean_stage1)
 ```
@@ -155,7 +155,7 @@ skim_without_charts(mid_clean_stage1)
 - Whitespace and empty cells: 0 in each column;
 - Column names: Correct;
 - Character length variation in column 'rideable_type', and four station-related columns (names and IDs) is normal for this data type;
-- The 'ride_length' column is in the "difftime" (<drtn> - duration) format which is correct.
+- The 'ride_length' column is in the 'difftime' (duration) format which is correct.
 
 #### Data Issues to Address:
 #### The First Issue:
@@ -166,8 +166,8 @@ skim_without_charts(mid_clean_stage1)
 
 ### Fixing the Two Data Cleanliness Issues:
 #### The First Issue Approach: Since the classic bikes that were not docked have missing values in four station-related columns:
-- Delete all rows with missing values in station names and IDs, except if 'rideable_type == electric_bike' and check the number of rows removed.
-- A detailed explanation for this step can be found in the Process Phase section of the Project Description
+- Delete all rows with missing values in station names and IDs, except if 'rideable_type' == 'electric_bike' and check the number of rows removed.
+- A detailed explanation for this step can be found in the Process Phase section of the Project Description.
 
 #### The Second Issue Approach: Find and apply a reasonable trip duration trim range.
 
@@ -196,21 +196,22 @@ cat("Number of rows removed:", rows_removed1, "\n")
 ```
 
 #### Preparation for fixing trip duration outliers:
-#### Create a data frame with six key columns that will serve as the foundation for all subsequent data cleaning and analysis processes.
+#### Create a data frame with six key columns that will serve as th foundation for all subsequent data cleaning and analysis processes
 ```{r}
 mid_clean_stage2 <- subset(clean_miss_val, select = c(ride_id, started_at, day_of_week, ride_length, member_casual, rideable_type))
 ```
 
-### Identifying a Reasonable Trip Duration Trim Range by Analyzing Distribution Percentiles:
+### Identifying a Reasonable Trip Duration Trim Range by Analyzing Distribution Percentiles.
 
-#### Aggregation for Plot 1: Define the percentiles with smaller increments
+#### # Aggregation for Plot 1.
+#### Define the percentiles with smaller increments
 ```{r}
 plot_percentiles <- seq(0, 0.1, by = 0.002)
 plot_values <- quantile(subset(mid_clean_stage2, member_casual == "casual")$ride_length, 
                     probs = plot_percentiles)
 ```
 
-#### Plot 1. Trip duration 0-10 minutes in percentiles for Casuals for general visualization.
+### Plot 1. Trip duration 0-10 minutes in percentiles for Casuals for general visualization.
 ```{r}
 plot(plot_percentiles * 100, plot_values, type = "o", 
      xlab = "Percentiles", ylab = "Minutes", 
@@ -218,6 +219,7 @@ plot(plot_percentiles * 100, plot_values, type = "o",
      ylim = c(0, 5))
 grid(nx = 10, ny = 10, lty = 1, col = "gray", lwd = 1)
 ```
+
 
 #### Tibble 1. Casuals' Trip Duration in the 1st to 5th Percentile Range:
 #### This code computes specific low-end quantiles for analyzing the distribution of shorter ride lengths
@@ -258,6 +260,7 @@ print(p02_df)
 
 ### Analyze Members and Casuals Ride Durations Separately for a Reasonable Trim Duration Range Using a Histogram.
 
+#### # Aggregation fot Plot 2.
 #### Subset the the Members' data for the range from 0 to 5 minutes
 ```{r}
 filtered_member <- mid_clean_stage2 %>%
@@ -268,7 +271,7 @@ filtered_member <- mid_clean_stage2 %>%
 
 ```
 
-#### Plot 2. Histogram for the distribution of Members' data within 0 to 5-minute intervals, using a bin width of 0.1 minutes.
+### Plot 2. Histogram for the distribution of Members' data within 0 to 5-minute intervals, using a bin width of 0.1 minutes
 ```{r}
 ggplot(filtered_member, aes(x = ride_length)) +
   geom_histogram(binwidth = 0.1, fill = "green", color = "black", alpha = 0.4, na.rm = TRUE) +
@@ -281,7 +284,7 @@ ggplot(filtered_member, aes(x = ride_length)) +
   theme_minimal()
 ```
 
-
+#### # Aggregation fot Plot 3.
 #### Subset the the Casuals' data for the range from 0 to 5 minutes
 ```{r}
 filtered_casual <- mid_clean_stage2 %>%
@@ -292,7 +295,7 @@ filtered_casual <- mid_clean_stage2 %>%
 
 ```
 
-#### Plot 3. Histogram for the distribution of Casuals' data within 0 to 5-minute intervals, using a bin width of 0.1 minutes.
+### Plot 3. Histogram for the distribution of Casuals' data within 0 to 5-minute intervals, using a bin width of 0.1 minutes
 ```{r}
 ggplot(filtered_casual, aes(x = ride_length)) +
   geom_histogram(binwidth = 0.1, fill = "blue", color = "black", alpha = 0.4, na.rm = TRUE) +
@@ -309,7 +312,7 @@ ggplot(filtered_casual, aes(x = ride_length)) +
 - A comprehensive explanation of this can be found in the Process Phase of the Project Description.
 
 ### The Second Data Cleanliness Issue Fix:
-#### Trim the 'ride_length' column within the range of 2 minutes to 12 hours, ensuring the range is relevant for analysis.
+#### Trim the 'ride_length' column within the range of 2 minutes to 12 hours, ensuring the range is relevant for analysis
 ```{r}
 # Store the initial row count
 initial_row_count2 <- nrow(mid_clean_stage2)
@@ -325,7 +328,8 @@ cat("Number of rows removed:", rows_removed2, "\n")
 ```
 
 
-### Plot 4. Visualizing Trip Counts to Identify Other Potential Outliers:
+### Identifying Other Potential Outliers:
+#### # Aggregation fot Plot 4.
 #### Add a new 'month' column without modifying 'started_at'
 ```{r}
 trim_dur2023 <- trim_dur2023 %>%
@@ -339,7 +343,7 @@ trip_counts <- trim_dur2023 %>%
   summarize(trip_count = n_distinct(ride_id), .groups = "drop")
 ```
 
-#### Create the chart
+### Plot 4. Visualizing Trip Counts to Identify Other Potential Outliers
 ```{r}
 ggplot(trip_counts, aes(x = month, y = trip_count, fill = rideable_type)) +
   geom_bar(stat = "identity", position = "dodge") +
@@ -355,8 +359,8 @@ ggplot(trip_counts, aes(x = month, y = trip_count, fill = rideable_type)) +
 ```
 
 
-#### Conclusion from this chart observation:
-- The trip count for docked bikes is negligible compared to other bike types and appears to be missing in September to December, 2023
+#### Conclusion from the chart observation:
+- The trip count for docked bikes is negligible compared to other bike types and appears to be missing in September to December, 2023.
 
 #### Check for Missing Bike Types in Monthly Data:
 #### Check the presence of each rideable_type in each month
@@ -393,14 +397,14 @@ print(false_presence)
 #### Since this group of individuals are outliers, and the docked bikes are no longer in service, all rows with 'docked_bikes' should be deleted.
 #### The rationale for this decision is explained in the Process Phase of the Project Description.
 
-#### Remove the column 'month' that was added and using temporarely for Plot 4 and subsequent codes.
+#### Remove the column 'month' that was added and using temporarely for Plot 4 and subsequent codes
 ```{r}
 trim_dur2023 <- trim_dur2023 %>%
   select(-month)
 ```
 
 ### Data Cleaning after Analysis in Excel:
-#### Remove rows where rideable_type = "docked_bike".
+#### Remove rows where 'rideable_type' = 'docked_bike'
 ```{r}
 # Store the initial row count
 initial_row_count3 <- nrow(trim_dur2023)
@@ -420,7 +424,7 @@ cat("Number of rows removed:", rows_removed3, "\n")
 glimpse(data2023)
 ```
 
-#### Save modified and cleaned dataset as .RData object, making it ready for the Analysis Phase.
+#### Save modified and cleaned dataset as .RData object, making it ready for the Analysis Phase
 ```{r}
 save(data2023, file = "data2023.RData")
 ```

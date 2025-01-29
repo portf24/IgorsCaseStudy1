@@ -8,6 +8,7 @@ output:
 ---
 
 ### This R Markdown analyzes differences between members & casual bike users.
+#### A comprehensive explanation of the data analysis steps can be found in the Analysis Phase of the Project Description.
 #### Install R packages & their libraries to enable subsequent operations.
 #### Depending on your RStudio version, packages may be pre-installed, or you might need to install them manually.
 ```{r, message=FALSE}
@@ -28,6 +29,8 @@ glimpse(data2023)
 ```{r}
 skim_without_charts(data2023)
 ```
+
+#### The dataset appears clean: functions glimpse() and skim_without_charts() reaffirms the data's integrity and readiness for the Analysis Phase
 
 ### Color Palettes for Visualizations in Figures 2 to 11
 #### For Figures 3, 4, and 5A: Define color palette 1 
@@ -50,9 +53,8 @@ color_palette3 <- c("#e25822", "#ffa07a")
 color_palette4 <- c("#008000", "#b2ec5d")
 ```
 
-
-### Figure 1. Pie chart for trip number of members vs casuals in %.
-#### Grouping & aggregation
+### Initiating Chart Creation.
+#### # Aggregation for Figure 1
 ```{r}
 data2023_pie1 <- data2023 %>%
   group_by(member_casual) %>%
@@ -72,6 +74,7 @@ unweighted_yearly_ratio <- casual_count / member_count
 unweighted_yearly_ratio # Unweighted Yearly (Months) average for Table 5
 ```
 
+### Figure 1. Pie chart for trip number of members vs casuals in %.
 ```{r}
 ggplot(data2023_pie1, aes(x = "", y = percentage, fill = member_casual)) +
   geom_bar(width = 1, stat = "identity") +
@@ -88,14 +91,14 @@ ggplot(data2023_pie1, aes(x = "", y = percentage, fill = member_casual)) +
 ```
 
 
-### Figure 2. Pie chart for trip number of all riders in %.
-#### Grouping & aggregation
+#### # Aggregation for Figure 2
 ```{r}
 trips_count <- data2023 %>%
   group_by(type_of_users = paste(member_casual, rideable_type)) %>%
   summarise(count = n(), .groups = 'drop')
 ```
 
+### Figure 2. Pie chart for trip number of all riders in %.
 ```{r}
 ggplot(trips_count, aes(x = "", y = count, fill = type_of_users, label = sprintf("%.1f%%", count/sum(count)*100))) +
   geom_bar(width = 1, stat = "identity") +
@@ -146,7 +149,7 @@ print(perc_casual2)
 ```
 
 
-### Figure 3. Trip count for weekdays between members & casuals.
+#### # Aggregation for Figure 3.
 #### Group by the combination of day_of_week with member_casual
 ```{r}
 count_trips7 <- data2023 %>%
@@ -161,6 +164,7 @@ count_trips7$day_of_week <- factor(count_trips7$day_of_week, levels = c(
   "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"))
 ```
 
+### Figure 3. Trip count for weekdays between members & casuals.
 ```{r}
 ggplot(count_trips7, aes(x = day_of_week, y = count_trips7, 
                          fill = member_casual)) +
@@ -173,7 +177,7 @@ ggplot(count_trips7, aes(x = day_of_week, y = count_trips7,
 ```
 
 
-### Figure 4. Duration for weekdays between members & casuals.
+#### # Aggregation for Figure 4
 ```{r}
 day_dur8 <- data2023 %>%
   group_by(day_of_week, member_casual) %>%
@@ -187,6 +191,7 @@ day_dur8$day_of_week <- factor(day_dur8$day_of_week, levels = c(
   "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"))
 ```
 
+### Figure 4. Duration for weekdays between members & casuals.
 ```{r}
 ggplot(day_dur8, aes(x = day_of_week, y = day_dur8, 
                          fill = member_casual)) +
@@ -198,8 +203,7 @@ ggplot(day_dur8, aes(x = day_of_week, y = day_dur8,
    theme(axis.text.x = element_text(angle = 0, vjust = 0.5, hjust=1))
 ```
 
-
-### Figure 5A. Average trip duration for members vs casuals combined
+#### # Aggregation for Figure 5A.
 #### Group by month, member_casual, rideable_type & calc. average trip duration
 ```{r}
 avg_dur1 <- data2023 %>%
@@ -216,6 +220,7 @@ avg_dur1$month <- factor(avg_dur1$month, levels = c(
 ))
 ```
 
+### Figure 5A. Average trip duration for members vs casuals combined
 ```{r}
 ggplot(avg_dur1, aes(x = month, y = avg_dur1, fill = member_casual)) +
   geom_bar(stat = "identity", position = position_dodge(width = 0.8), width = 0.6) +
@@ -225,7 +230,7 @@ ggplot(avg_dur1, aes(x = month, y = avg_dur1, fill = member_casual)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ```
 
-### Figure 5B. Average trip duration & all types of bike users.
+#### # Aggregation for Figure 5B.
 #### Group by the combination of all values from member_casual and rideable_type
 ```{r}
 avg_dur2 <- data2023 %>%
@@ -241,6 +246,7 @@ avg_dur2$month <- factor(avg_dur2$month, levels = c(
   "July", "August", "September", "October", "November", "December"))
 ```
 
+### Figure 5B. Average trip duration & all types of bike users.
 ```{r}
 ggplot(avg_dur2, aes(x = month, y = avg_dur2, fill = type_of_users)) +
   geom_bar(stat = "identity", position = position_dodge(width = 0.8), width = 0.6) +
@@ -251,7 +257,7 @@ ggplot(avg_dur2, aes(x = month, y = avg_dur2, fill = type_of_users)) +
 ```
 
 
-### Figure 6. Average trip duration for classic_bike between members & casuals.
+#### # Aggregation for Figure 6.
 #### Group by the combination of classic_bike with member_casual
 ```{r}
 avg_dur3 <- data2023 %>%
@@ -271,6 +277,7 @@ avg_dur3$month <- factor(avg_dur3$month, levels = c(
   "July", "August", "September", "October", "November", "December"))
 ```
 
+### Figure 6. Average trip duration for classic_bike between members & casuals.
 ```{r}
 ggplot(avg_dur3, aes(x = month, y = avg_dur3, fill = classic_bike_users)) +
   geom_bar(stat = "identity", position = position_dodge(width = 0.8), width = 0.6) +
@@ -280,8 +287,7 @@ ggplot(avg_dur3, aes(x = month, y = avg_dur3, fill = classic_bike_users)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ```
 
-
-### Figure 7. Trip count for classic_bike between members & casuals.
+#### # Aggregation for Figure 7.
 #### Group by the combination of classic_bike with member_casual
 ```{r}
 count_trips1 <- data2023 %>%
@@ -301,6 +307,7 @@ count_trips1$month <- factor(count_trips1$month, levels = c(
   "July", "August", "September", "October", "November", "December"))
 ```
 
+### Figure 7. Trip count for classic_bike between members & casuals.
 ```{r}
 ggplot(count_trips1, aes(x = month, y = count_trips1, 
                          fill = classic_bike_users)) +
@@ -312,8 +319,7 @@ ggplot(count_trips1, aes(x = month, y = count_trips1,
    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ```
 
-
-### Figure 8. Average trip duration for electric_bike between members & casuals.
+#### # Aggregation for Figure 8.
 #### Group by the combination of 'electric_bike' with 'member_casual'
 ```{r}
 avg_dur4 <- data2023 %>%
@@ -333,6 +339,7 @@ avg_dur4$month <- factor(avg_dur4$month, levels = c(
   "July", "August", "September", "October", "November", "December"))
 ```
 
+### Figure 8. Average trip duration for electric_bike between members & casuals.
 ```{r}
 ggplot(avg_dur4, aes(x = month, y = avg_dur4, fill = electric_bike_users)) +
   geom_bar(stat = "identity", position = position_dodge(width = 0.8), width = 0.6) +
@@ -343,7 +350,7 @@ ggplot(avg_dur4, aes(x = month, y = avg_dur4, fill = electric_bike_users)) +
 ```
 
 
-### Figure 9. Trip count for electric_bike between members & casuals.
+#### # Aggregation for Figure 9.
 #### Group by the combination of electric_bike with member_casual
 ```{r}
 count_trips2 <- data2023 %>%
@@ -363,6 +370,7 @@ count_trips2$month <- factor(count_trips2$month, levels = c(
   "July", "August", "September", "October", "November", "December"))
 ```
 
+### Figure 9. Trip count for electric_bike between members & casuals.
 ```{r}
 ggplot(count_trips2, aes(x = month, y = count_trips2, 
                          fill = electric_bike_users)) +
@@ -375,7 +383,7 @@ ggplot(count_trips2, aes(x = month, y = count_trips2,
 ```
 
 
-### Figure 10. Trip count with data labels for all riders by seasons.
+#### # Aggregation for Figure 10.
 #### Define a function to convert month to season
 - Note: Function 'month_to_season' will be used for Figure 11 and Table 3as well)
 ```{r}
@@ -396,6 +404,7 @@ tr_count_season <- data2023 %>%
   summarise(tr_count_season = n(), .groups = 'drop')
 ```
 
+### Figure 10. Trip count with data labels for all riders by seasons.
 ```{r}
 ggplot(tr_count_season, aes(x = season, y = tr_count_season, fill = type_of_users, label = round(tr_count_season, 0 ))) +
   geom_bar(stat = "identity", position = position_dodge(width = 1.0), width = 0.8) +
@@ -408,10 +417,8 @@ ggplot(tr_count_season, aes(x = season, y = tr_count_season, fill = type_of_user
 ```
 
 
-### Figure 11. Trip duration with data labels for all riders by seasons.
+#### # Aggregate data by seasons for Figure 11.
 - Note: In the next code chunk, function 'month_to_season' is taken from Figure 10 aggregation code block to classify months into seasons
-
-#### Aggregate data by seasons
 ```{r}
 avg_dur_season <- data2023 %>%
   mutate(month = format(started_at, "%B")) %>%
@@ -420,6 +427,7 @@ avg_dur_season <- data2023 %>%
   summarise(avg_dur_season = mean(ride_length), .groups = 'drop')
 ```
 
+### Figure 11. Trip duration with data labels for all riders by seasons.
 ```{r}
 ggplot(avg_dur_season, aes(x = season, y = avg_dur_season, fill = type_of_users, label = round(avg_dur_season, 1 ))) +
   geom_bar(stat = "identity", position = position_dodge(width = 0.9), width = 0.8) +
@@ -463,7 +471,7 @@ print(percentiles_table)
 ```
 
 
-### Figure 12. Weekly, Monthly, Yearly, Bike and Cold seasons ratios between Casuals and Members.
+#### # Aggregation for Figure 12.
 #### Create a week column and calculate the weekly ratio
 ```{r}
 weekly_counts <- data2023 %>%
@@ -526,7 +534,7 @@ jan_mar_nov_dec_avg # Cold Season average for Table 5
 
 ```
 
-#### Creating the Figure 12
+### Figure 12. Weekly, Monthly, Yearly, Bike and Cold seasons ratios between Casuals and Members.
 ```{r}
 ggplot(weekly_counts, aes(x = week, y = ratio, color = "Weekly")) +
   # Weekly ratio line
