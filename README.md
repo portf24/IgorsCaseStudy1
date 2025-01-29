@@ -18,7 +18,7 @@
 - For the project, I utilized RStudio for data cleaning, aggregation, statistical analysis, and visualization, while Excel, including PivotTables and charts, was employed for data observation, additional research, and visualization tasks.
 - The entire project link is under the photo
 - Other links: [Analysis Description](Analysis%20Description.pdf); [PowerPoint](PowerPoint1.pdf); [Project Content](Project%20content.pdf); 
-- Run code and verify functionality on [Kaggle](https://www.kaggle.com/code/igorvysochanskyy/bike-share-success)
+- Run code and verify functionality on [Kaggle](https://www.kaggle.com/code/igorvysochanskyy/Chicago-on-Wheels)
 
 ## Education:
 
