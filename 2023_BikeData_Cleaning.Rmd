@@ -14,11 +14,11 @@ output: html_document
 #### Install R packages & their libraries to enable subsequent operations.
 #### Depending on your RStudio version, packages may be pre-installed, or you might need to install them manually.
 ```{r, message=FALSE}
-library("tidyverse")
+library(tidyverse)
 ```
 
 ```{r}
-library("skimr")
+library(skimr)
 ```
 
 
