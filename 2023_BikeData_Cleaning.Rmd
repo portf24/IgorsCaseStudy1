@@ -1,8 +1,10 @@
 ---
-title: 'Project for ‘Cyclistic’, Part 1: Data Cleaning'
+title: "Project for ‘Cyclistic,' Part 1: Data Cleaning"
 author: "Igor Vysochanskyy"
 date: "2024-03-31"
-output: html_document
+output:
+  html_document: default
+  word_document: default
 ---
 
 ### This R Markdown cleans the 12 months (January-December) 2023 trip data of the Cyclistic bike-share company from the 12 zip files '2023(01-12)-divvy-tripdata.zip.'
@@ -87,7 +89,7 @@ for (file_name in file_names) {
 }
 ```
 
-#### Example of the column specification returned by the readr::read_csv() is only shown for December, 2023 to prevent cluttering knitted HTML output. 
+#### To prevent cluttering knitted HTML output, an example of the column specification returned by the readr::read_csv() is only shown for December 2023. 
 - Rows: 224073 (Number of rows is different for each month) Columns: 13
 - Column specification:
 - Delimiter: ",";
@@ -96,10 +98,10 @@ for (file_name in file_names) {
 - dttm (2): started_at, ended_at;
 - Downloaded and read: 202312-divvy-tripdata.zip (In this example).
 
-#### This column specification and metadata summary will be shown for each month when run the code and is used for initial data observation that allows to see how each column in each month data is formatted.
+#### When the code is run, this column specification and metadata summary will be shown for each month. It is used for initial data observation, which allows one to see how each column in each month's data is formatted.
 
 #### Initial data observation:
-- Columns number: 13 is correct for each month;
+- Columns number: 13, consistent across all months;
 - Columns type: Correct for each month. 
 
 #### Combine the 12 Months Datasets into One Data Frame
@@ -143,7 +145,7 @@ glimpse(mid_clean_stage1)
 ```
 
 
-### Check the detailed statistics including missing values, values distribution and overall dataset cleanliness
+### Check the detailed statistics,  including missing values, values distribution, and overall dataset cleanliness
 ```{r}
 skim_without_charts(mid_clean_stage1)
 ```
@@ -154,8 +156,8 @@ skim_without_charts(mid_clean_stage1)
 - Same number of characters (16) in ride_id column;
 - Whitespace and empty cells: 0 in each column;
 - Column names: Correct;
-- Character length variation in column 'rideable_type', and four station-related columns (names and IDs) is normal for this data type;
-- The 'ride_length' column is in the 'difftime' (duration) format which is correct.
+- Character length variation in column 'rideable_type' and four station-related columns (names and IDs) is normal for this data type;
+- The 'ride_length' column is in the 'difftime' (duration) format, which is correct.
 
 #### Data Issues to Address:
 #### The First Issue:
@@ -166,7 +168,7 @@ skim_without_charts(mid_clean_stage1)
 
 ### Fixing the Two Data Cleanliness Issues:
 #### The First Issue Approach: Since the classic bikes that were not docked have missing values in four station-related columns:
-- Delete all rows with missing values in station names and IDs, except if 'rideable_type' == 'electric_bike' and check the number of rows removed.
+- Delete all rows with missing values in station names and IDs, except if 'rideable_type' == 'electric_bike,' and check the number of rows removed.
 - A detailed explanation for this step can be found in the Process Phase section of the Project Description.
 
 #### The Second Issue Approach: Find and apply a reasonable trip duration trim range.
@@ -196,7 +198,7 @@ cat("Number of rows removed:", rows_removed1, "\n")
 ```
 
 #### Preparation for fixing trip duration outliers:
-#### Create a data frame with six key columns that will serve as th foundation for all subsequent data cleaning and analysis processes
+#### Create a data frame with six key columns that will serve as the foundation for all subsequent data cleaning and analysis processes
 ```{r}
 mid_clean_stage2 <- subset(clean_miss_val, select = c(ride_id, started_at, day_of_week, ride_length, member_casual, rideable_type))
 ```
@@ -258,10 +260,10 @@ p02_df$Minutes <- round(p02_df$Minutes, 2)
 print(p02_df)
 ```
 
-### Analyze Members and Casuals Ride Durations Separately for a Reasonable Trim Duration Range Using a Histogram.
+### Analyze Member's and Casuals' Ride Durations Separately for a Reasonable Trim Duration Range Using a Histogram.
 
-#### # Aggregation fot Plot 2.
-#### Subset the the Members' data for the range from 0 to 5 minutes
+#### # Aggregation for Plot 2.
+#### Subset the Members' data for the range from 0 to 5 minutes
 ```{r}
 filtered_member <- mid_clean_stage2 %>%
   filter(
@@ -284,8 +286,8 @@ ggplot(filtered_member, aes(x = ride_length)) +
   theme_minimal()
 ```
 
-#### # Aggregation fot Plot 3.
-#### Subset the the Casuals' data for the range from 0 to 5 minutes
+#### # Aggregation for Plot 3.
+#### Subset the Casuals' data for the range from 0 to 5 minutes
 ```{r}
 filtered_casual <- mid_clean_stage2 %>%
   filter(
@@ -329,7 +331,7 @@ cat("Number of rows removed:", rows_removed2, "\n")
 
 
 ### Identifying Other Potential Outliers:
-#### # Aggregation fot Plot 4.
+#### # Aggregation for Plot 4.
 #### Add a new 'month' column without modifying 'started_at'
 ```{r}
 trim_dur2023 <- trim_dur2023 %>%
@@ -359,8 +361,8 @@ ggplot(trip_counts, aes(x = month, y = trip_count, fill = rideable_type)) +
 ```
 
 
-#### Conclusion from the chart observation:
-- The trip count for docked bikes is negligible compared to other bike types and appears to be missing in September to December, 2023.
+#### The conclusion from the chart observation:
+- The trip count for docked bikes is negligible compared to other bike types and appears missing from September to December, 2023.
 
 #### Check for Missing Bike Types in Monthly Data:
 #### Check the presence of each rideable_type in each month
@@ -382,22 +384,22 @@ false_presence <- rideable_presence %>%
 print(false_presence)
 ```
 
-#### The 'docked_bike' is missing in four months: from September to December, 2023.
+#### The 'docked_bike' has been missing for four months: from September to December, 2023.
 
 ### Investigation of Docked Bike Behavior Exclusively in Microsoft Excel:
 - The January, April, and August historical datasets were each uploaded into separate Excel workbooks.
-- Data cleaning was performed after evaluations the data cleanliness in this R Markdown.
-- Deleted all rows with missing values in four columns with station names and their ID’s, except if ‘rideable_type == electric_bike’.
+- Data cleaning was performed after evaluations of the data cleanliness in this R Markdown.
+- Deleted all rows with missing values in four columns with station names and their IDs, except when ‘rideable_type == electric_bike’.
 - Created a columns 'ride_length' and 'day_of_week'.
-- Trimmed trip duration outliers to within the range of 2 minutes to 12 hours.
+- Trimmed trip duration outliers to within 2 minutes to 12 hours.
 - Analyzed the data using Excel Pivot Columns Charts and Pie Charts. Charts are shown in the Process Phase of the Project Description.
-- Excel Pivot Columns Charts and Pie Charts revealed that “docked bikes” exhibited very different behavior—an extremely small count of rides and a significantly longer average trip duration—indicative of potential outliers.
+- Excel Pivot Columns and Pie Charts revealed that “docked bikes” exhibited very different behavior—an extremely small number of rides and a significantly longer average trip duration—indicative of potential outliers.
 
 #### Conclusion:
 #### Since this group of individuals are outliers, and the docked bikes are no longer in service, all rows with 'docked_bikes' should be deleted.
 #### The rationale for this decision is explained in the Process Phase of the Project Description.
 
-#### Remove the column 'month' that was added and using temporarely for Plot 4 and subsequent codes
+#### Remove the column 'month' that was added and used temporarily for Plot 4 and subsequent codes
 ```{r}
 trim_dur2023 <- trim_dur2023 %>%
   select(-month)

@@ -1,5 +1,5 @@
 ---
-title: "Project for 'Cyclistic', Part 2: Analysis Phase"
+title: "Project for 'Cyclistic,' Part 2: Analysis Phase"
 author: "Igor Vysochanskyy"
 date: "2024-04-30"
 output:
@@ -30,7 +30,7 @@ glimpse(data2023)
 skim_without_charts(data2023)
 ```
 
-#### The dataset appears clean: functions glimpse() and skim_without_charts() reaffirms the data's integrity and readiness for the Analysis Phase
+#### The dataset appears clean: functions glimpse() and skim_without_charts() reaffirm the data's integrity and readiness for the Analysis Phase
 
 ### Color Palettes for Visualizations in Figures 2 to 11
 #### For Figures 3, 4, and 5A: Define color palette 1 
@@ -38,7 +38,7 @@ skim_without_charts(data2023)
 color_palette1 <- c("#D74B76", "#FAA300")
 ```
 
-#### For Figures 2, 5B, 10 and 11: Define color palette 2 for each combination of user & bike type
+#### For Figures 2, 5B, 10, and 11: Define color palette 2 for each combination of user & bike type
 ```{r}
 color_palette2 <- c("#e25822", "#008000", "#ffa07a", "#b2ec5d")
 ```
@@ -74,7 +74,7 @@ unweighted_yearly_ratio <- casual_count / member_count
 unweighted_yearly_ratio # Unweighted Yearly (Months) average for Table 5
 ```
 
-### Figure 1. Pie chart for trip number of members vs casuals in %.
+### Figure 1. Pie chart for the trip number of members vs. casuals in %.
 ```{r}
 ggplot(data2023_pie1, aes(x = "", y = percentage, fill = member_casual)) +
   geom_bar(width = 1, stat = "identity") +
@@ -98,7 +98,7 @@ trips_count <- data2023 %>%
   summarise(count = n(), .groups = 'drop')
 ```
 
-### Figure 2. Pie chart for trip number of all riders in %.
+### Figure 2. Pie chart for the trip number of all riders in %.
 ```{r}
 ggplot(trips_count, aes(x = "", y = count, fill = type_of_users, label = sprintf("%.1f%%", count/sum(count)*100))) +
   geom_bar(width = 1, stat = "identity") +
@@ -204,7 +204,7 @@ ggplot(day_dur8, aes(x = day_of_week, y = day_dur8,
 ```
 
 #### # Aggregation for Figure 5A.
-#### Group by month, member_casual, rideable_type & calc. average trip duration
+#### Group by month, member_casual, rideable_type & calculate average trip duration
 ```{r}
 avg_dur1 <- data2023 %>%
   mutate(month = format(started_at, "%B")) %>%  # Extract month from started_at column
@@ -385,7 +385,7 @@ ggplot(count_trips2, aes(x = month, y = count_trips2,
 
 #### # Aggregation for Figure 10.
 #### Define a function to convert month to season
-- Note: Function 'month_to_season' will be used for Figure 11 and Table 3as well)
+- Note: Function 'month_to_season' will be used for Figure 11 and Table 3 as well)
 ```{r}
 month_to_season <- function(month) {
   case_when(
@@ -404,7 +404,7 @@ tr_count_season <- data2023 %>%
   summarise(tr_count_season = n(), .groups = 'drop')
 ```
 
-### Figure 10. Trip count with data labels for all riders by seasons.
+### Figure 10. Trip count with data labels for all riders by both seasons.
 ```{r}
 ggplot(tr_count_season, aes(x = season, y = tr_count_season, fill = type_of_users, label = round(tr_count_season, 0 ))) +
   geom_bar(stat = "identity", position = position_dodge(width = 1.0), width = 0.8) +
@@ -427,7 +427,7 @@ avg_dur_season <- data2023 %>%
   summarise(avg_dur_season = mean(ride_length), .groups = 'drop')
 ```
 
-### Figure 11. Trip duration with data labels for all riders by seasons.
+### Figure 11. Trip duration with data labels for all riders by both seasons.
 ```{r}
 ggplot(avg_dur_season, aes(x = season, y = avg_dur_season, fill = type_of_users, label = round(avg_dur_season, 1 ))) +
   geom_bar(stat = "identity", position = position_dodge(width = 0.9), width = 0.8) +
@@ -443,7 +443,7 @@ ggplot(avg_dur_season, aes(x = season, y = avg_dur_season, fill = type_of_users,
 ### Table 3. Casuals' Bike Season Trip Duration in the 60th to 100th Percentile Range
 - Note: Function 'month_to_season' is taken from Figure 10 aggregation code block to classify months into seasons
 ```{r}
-# Step 1: Extract month and classify into seasons
+# Step 1: Extract the month and classify it into seasons
 data2023 <- data2023 %>%
   mutate(
     month = format(started_at, "%B"), # Extract full month name
@@ -466,7 +466,7 @@ percentiles_table <- data.frame(
   Ride_Length = round(as.numeric(percentiles), 1) # Extract the numeric values (ride lengths)
 )
 
-# Print the percentiles Table 3
+# Print the percentiles for Table 3
 print(percentiles_table)
 ```
 
@@ -534,7 +534,7 @@ jan_mar_nov_dec_avg # Cold Season average for Table 5
 
 ```
 
-### Figure 12. Weekly, Monthly, Yearly, Bike and Cold seasons ratios between Casuals and Members.
+### Figure 12. Weekly, monthly, yearly, and Bike and Cold seasons ratios between Casuals and Members.
 ```{r}
 ggplot(weekly_counts, aes(x = week, y = ratio, color = "Weekly")) +
   # Weekly ratio line
@@ -654,7 +654,7 @@ yearly_avg_months # Weighted Yearly (Months) average for Table 5
 #### Table 5 references values from multiple calculations:
 - Figure 12: Includes 'april_oct_avg', 'jan_mar_nov_dec_avg' and 'yearly_avg';
 - Figure 1: Includes 'unweighted_yearly_ratio';
-- From calculation above: Includes 'yearly_avg_months'.
+- The calculation above: Includes 'yearly_avg_months'.
 ```{r}
 # Create a data frame with renamed variables
 averages_table <- data.frame(
