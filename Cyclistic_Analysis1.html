@@ -13,7 +13,7 @@
 
 <meta name="date" content="2024-04-30" />
 
-<title>Project for ‘Cyclistic’, Part 2: Analysis Phase</title>
+<title>Project for ‘Cyclistic,’ Part 2: Analysis Phase</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -350,7 +350,7 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Project for ‘Cyclistic’, Part 2: Analysis
+<h1 class="title toc-ignore">Project for ‘Cyclistic,’ Part 2: Analysis
 Phase</h1>
 <h4 class="author">Igor Vysochanskyy</h4>
 <h4 class="date">2024-04-30</h4>
@@ -584,9 +584,9 @@ ready for analysis</h4>
 </tbody>
 </table>
 </div>
-<div id="the-dataset-appears-clean-functions-glimpse-and-skim_without_charts-reaffirms-the-datas-integrity-and-readiness-for-the-analysis-phase" class="section level4">
+<div id="the-dataset-appears-clean-functions-glimpse-and-skim_without_charts-reaffirm-the-datas-integrity-and-readiness-for-the-analysis-phase" class="section level4">
 <h4>The dataset appears clean: functions glimpse() and
-skim_without_charts() reaffirms the data’s integrity and readiness for
+skim_without_charts() reaffirm the data’s integrity and readiness for
 the Analysis Phase</h4>
 </div>
 </div>
@@ -597,7 +597,7 @@ the Analysis Phase</h4>
 <pre class="r"><code>color_palette1 &lt;- c(&quot;#D74B76&quot;, &quot;#FAA300&quot;)</code></pre>
 </div>
 <div id="for-figures-2-5b-10-and-11-define-color-palette-2-for-each-combination-of-user-bike-type" class="section level4">
-<h4>For Figures 2, 5B, 10 and 11: Define color palette 2 for each
+<h4>For Figures 2, 5B, 10, and 11: Define color palette 2 for each
 combination of user &amp; bike type</h4>
 <pre class="r"><code>color_palette2 &lt;- c(&quot;#e25822&quot;, &quot;#008000&quot;, &quot;#ffa07a&quot;, &quot;#b2ec5d&quot;)</code></pre>
 </div>
@@ -635,8 +635,9 @@ unweighted_yearly_ratio # Unweighted Yearly (Months) average for Table 5</code><
 <pre><code>## [1] 0.5443153</code></pre>
 </div>
 </div>
-<div id="figure-1.-pie-chart-for-trip-number-of-members-vs-casuals-in-." class="section level3">
-<h3>Figure 1. Pie chart for trip number of members vs casuals in %.</h3>
+<div id="figure-1.-pie-chart-for-the-trip-number-of-members-vs.-casuals-in-." class="section level3">
+<h3>Figure 1. Pie chart for the trip number of members vs. casuals in
+%.</h3>
 <pre class="r"><code>ggplot(data2023_pie1, aes(x = &quot;&quot;, y = percentage, fill = member_casual)) +
   geom_bar(width = 1, stat = &quot;identity&quot;) +
   geom_text(aes(label = paste(member_casual, sprintf(&quot;%.1f%%&quot;, percentage))), position = position_stack(vjust = 0.5), size = 5) +
@@ -657,8 +658,8 @@ unweighted_yearly_ratio # Unweighted Yearly (Months) average for Table 5</code><
   summarise(count = n(), .groups = &#39;drop&#39;)</code></pre>
 </div>
 </div>
-<div id="figure-2.-pie-chart-for-trip-number-of-all-riders-in-." class="section level3">
-<h3>Figure 2. Pie chart for trip number of all riders in %.</h3>
+<div id="figure-2.-pie-chart-for-the-trip-number-of-all-riders-in-." class="section level3">
+<h3>Figure 2. Pie chart for the trip number of all riders in %.</h3>
 <pre class="r"><code>ggplot(trips_count, aes(x = &quot;&quot;, y = count, fill = type_of_users, label = sprintf(&quot;%.1f%%&quot;, count/sum(count)*100))) +
   geom_bar(width = 1, stat = &quot;identity&quot;) +
   coord_polar(theta = &quot;y&quot;) +
@@ -776,8 +777,8 @@ order</h4>
 <div id="aggregation-for-figure-5a." class="section level4">
 <h4># Aggregation for Figure 5A.</h4>
 </div>
-<div id="group-by-month-member_casual-rideable_type-calc.-average-trip-duration" class="section level4">
-<h4>Group by month, member_casual, rideable_type &amp; calc. average
+<div id="group-by-month-member_casual-rideable_type-calculate-average-trip-duration" class="section level4">
+<h4>Group by month, member_casual, rideable_type &amp; calculate average
 trip duration</h4>
 <pre class="r"><code>avg_dur1 &lt;- data2023 %&gt;%
   mutate(month = format(started_at, &quot;%B&quot;)) %&gt;%  # Extract month from started_at column
@@ -971,7 +972,7 @@ casuals.</h3>
 <h4>Define a function to convert month to season</h4>
 <ul>
 <li>Note: Function ‘month_to_season’ will be used for Figure 11 and
-Table 3as well)</li>
+Table 3 as well)</li>
 </ul>
 <pre class="r"><code>month_to_season &lt;- function(month) {
   case_when(
@@ -989,8 +990,8 @@ Table 3as well)</li>
   summarise(tr_count_season = n(), .groups = &#39;drop&#39;)</code></pre>
 </div>
 </div>
-<div id="figure-10.-trip-count-with-data-labels-for-all-riders-by-seasons." class="section level3">
-<h3>Figure 10. Trip count with data labels for all riders by
+<div id="figure-10.-trip-count-with-data-labels-for-all-riders-by-both-seasons." class="section level3">
+<h3>Figure 10. Trip count with data labels for all riders by both
 seasons.</h3>
 <pre class="r"><code>ggplot(tr_count_season, aes(x = season, y = tr_count_season, fill = type_of_users, label = round(tr_count_season, 0 ))) +
   geom_bar(stat = &quot;identity&quot;, position = position_dodge(width = 1.0), width = 0.8) +
@@ -1015,8 +1016,8 @@ seasons</li>
   summarise(avg_dur_season = mean(ride_length), .groups = &#39;drop&#39;)</code></pre>
 </div>
 </div>
-<div id="figure-11.-trip-duration-with-data-labels-for-all-riders-by-seasons." class="section level3">
-<h3>Figure 11. Trip duration with data labels for all riders by
+<div id="figure-11.-trip-duration-with-data-labels-for-all-riders-by-both-seasons." class="section level3">
+<h3>Figure 11. Trip duration with data labels for all riders by both
 seasons.</h3>
 <pre class="r"><code>ggplot(avg_dur_season, aes(x = season, y = avg_dur_season, fill = type_of_users, label = round(avg_dur_season, 1 ))) +
   geom_bar(stat = &quot;identity&quot;, position = position_dodge(width = 0.9), width = 0.8) +
@@ -1035,7 +1036,7 @@ Percentile Range</h3>
 <li>Note: Function ‘month_to_season’ is taken from Figure 10 aggregation
 code block to classify months into seasons</li>
 </ul>
-<pre class="r"><code># Step 1: Extract month and classify into seasons
+<pre class="r"><code># Step 1: Extract the month and classify it into seasons
 data2023 &lt;- data2023 %&gt;%
   mutate(
     month = format(started_at, &quot;%B&quot;), # Extract full month name
@@ -1058,7 +1059,7 @@ percentiles_table &lt;- data.frame(
   Ride_Length = round(as.numeric(percentiles), 1) # Extract the numeric values (ride lengths)
 )
 
-# Print the percentiles Table 3
+# Print the percentiles for Table 3
 print(percentiles_table)</code></pre>
 <pre><code>##   Percentile Ride_Length
 ## 1        60%        15.7
@@ -1134,8 +1135,8 @@ april_oct_avg       # Bike Season average for Table 5</code></pre>
 <pre><code>## [1] 0.3085346</code></pre>
 </div>
 </div>
-<div id="figure-12.-weekly-monthly-yearly-bike-and-cold-seasons-ratios-between-casuals-and-members." class="section level3">
-<h3>Figure 12. Weekly, Monthly, Yearly, Bike and Cold seasons ratios
+<div id="figure-12.-weekly-monthly-yearly-and-bike-and-cold-seasons-ratios-between-casuals-and-members." class="section level3">
+<h3>Figure 12. Weekly, monthly, yearly, and Bike and Cold seasons ratios
 between Casuals and Members.</h3>
 <pre class="r"><code>ggplot(weekly_counts, aes(x = week, y = ratio, color = &quot;Weekly&quot;)) +
   # Weekly ratio line
@@ -1270,7 +1271,7 @@ yearly_avg_months # Weighted Yearly (Months) average for Table 5</code></pre>
 <li>Figure 12: Includes ‘april_oct_avg’, ‘jan_mar_nov_dec_avg’ and
 ‘yearly_avg’;</li>
 <li>Figure 1: Includes ‘unweighted_yearly_ratio’;</li>
-<li>From calculation above: Includes ‘yearly_avg_months’.</li>
+<li>The calculation above: Includes ‘yearly_avg_months’.</li>
 </ul>
 <pre class="r"><code># Create a data frame with renamed variables
 averages_table &lt;- data.frame(
