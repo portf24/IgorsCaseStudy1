@@ -3,8 +3,8 @@ title: "Project for ‘Cyclistic,' Part 1: Data Cleaning"
 author: "Igor Vysochanskyy"
 date: "2024-03-31"
 output:
-  html_document: default
   word_document: default
+  html_document: default
 ---
 
 ### This R Markdown cleans the 12 months (January-December) 2023 trip data of the Cyclistic bike-share company from the 12 zip files '2023(01-12)-divvy-tripdata.zip.'
@@ -213,11 +213,11 @@ plot_values <- quantile(subset(mid_clean_stage2, member_casual == "casual")$ride
                     probs = plot_percentiles)
 ```
 
-### Plot 1. Trip duration 0-10 minutes in percentiles for Casuals for general visualization.
+### Plot 1. Trip Duration (0-5 min) Percentiles for Casual Riders for general visualization.
 ```{r}
 plot(plot_percentiles * 100, plot_values, type = "o", 
      xlab = "Percentiles", ylab = "Minutes", 
-     main = "Percentiles of trip duration for casuals, 0-10 min.",
+     main = "Trip Duration (0-5 min) Percentiles for Casuals",
      ylim = c(0, 5))
 grid(nx = 10, ny = 10, lty = 1, col = "gray", lwd = 1)
 ```
