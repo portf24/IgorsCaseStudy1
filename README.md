@@ -50,4 +50,4 @@
 ### Contact
 #### Email:  igor.vysochan@outlook.com
 #### [LinkedIn Link](https://www.linkedin.com/in/igor-vysochanskyy-7ab4922a2/) 
-
+#### [Medium Link](https://medium.com/@vyssoc01/cyclistic-bike-share-unlocking-insights-for-success-e136fc0543a5)
