@@ -1,13 +1,13 @@
 ## About me
 
-- Transitioning from a career in the electronic industry, I'm now eager to delve into the world of entry-level analytics. Armed with a Google Data Analytics Professional Certificate, I'm driven by a passion for technology and a knack for solving intricate problems. My journey has been marked by a constant engagement with data analysis, whether it's troubleshooting electronic equipment, quality control, or engineering solutions for everyday challenges.
+- Transitioning from a career in the electronic industry, I'm now eager to delve into the world of entry-level analytics. Armed with a Google Data Analytics Professional Certificate, I'm driven by a passion for technology and a knack for solving intricate problems. Constantly engaging with data analysis has marked my journey, whether it's troubleshooting electronic equipment, quality control, or engineering solutions for everyday challenges.
 
-- I thrive on challenging and diverse projects and am committed to continuous learning and professional growth. My analytical prowess, honed through real-world case studies and hands-on experience, positions me well for success in this dynamic field.
+- I thrive on tackling challenging, diverse projects and am continually seek opportunities to learn and grow. Through real-world case studies and hands-on experience, I’ve built strong analytical skills that help me solve problems and bring meaningful insights to every project I take on.
 
 ## Skills:
 
 ### R programming, SQL, Big Query, Tableau, Google Sheets,
-### Microsoft Applications: Word, Excel, Access, Power Point
+### Microsoft Applications: Word, Excel, Access, PowerPoint
 #### For a comprehensive overview of my skills and experiences, please use this link - [resume](Igors_Resume.pdf)
 
 ## Project:
@@ -15,7 +15,7 @@
 #### Exploring: How does a bike-share navigate speedy success?
 ##### The goal of this analysis was to find marketing strategies for increasing the number of annual memberships.
 ##### This task involved analyzing differences and trends in bike usage between members and casual riders, focusing on the number of trips, trip duration, and price. R programming was used to visualize these trends with ggplot() and percentile-based analyses to highlight key insights.
-- For the project, I utilized RStudio for data cleaning, aggregation, statistical analysis, and visualization, while Excel, including PivotTables and charts, was employed for data observation, additional research, and visualization tasks.
+- For the project, I utilized RStudio for data cleaning, aggregation, statistical analysis, and visualization, while Excel, including PivotTable and charts, was employed for data observation, additional research, and visualization tasks.
 - The entire project link is under the photo
 - Other links: [Analysis Description](Analysis%20Description.pdf); [PowerPoint](PowerPoint1.pdf); [Project Content](Project%20content.pdf); 
 - Run code and verify functionality on [Kaggle](https://www.kaggle.com/code/igorvysochanskyy/Chicago-on-Wheels)
@@ -29,7 +29,7 @@
 ![Coursera Badge](/Images/google_badge.png)
 
 ### Genesee Community College Courses (2023):
-- Microsoft Applications (Word, Excel, Access, Power Point)
+- Microsoft Applications (Word, Excel, Access, PowerPoint)
 - Introduction to Financial Accounting
 
 ### Udemy Certificate for Microsoft Excel Course (2021):  
@@ -39,6 +39,7 @@
 #### LinkedIn Certificates: 
 - “Excel for Sales Professionals” [Link](https://www.linkedin.com/learning/certificates/8d05b80f3dd289b8c062ea31f8ade957466f9c7ba8ed59176da880b364a14793?trk=share_certificate)
 - “Microsoft Access Essential Training” [Link](https://www.linkedin.com/learning/certificates/2bc7dddad6ecbb81da5c467e906f51d1dd207692657a66caeef706278097b2fe?trk=share_certificate)
+- "Outlook on the Web Essential Training" [Link](https://www.linkedin.com/learning/certificates/287521843e196691f6f8b8fb92bc6b21021aec619ba22cb831165737f674a33f?trk=share_certificate%20#microsoftoutlook)
 - “Excel Tips Weekly”: Completed 300 lessons for an extensive training in Excel
 
 ## Relevant Experience:
@@ -51,3 +52,4 @@
 #### Email:  igor.vysochan@outlook.com
 #### [LinkedIn Link](https://www.linkedin.com/in/igor-vysochanskyy-7ab4922a2/) 
 #### [Medium Link](https://medium.com/@vyssoc01/cyclistic-bike-share-unlocking-insights-for-success-e136fc0543a5)
+#### [Kaggle Link](https://www.kaggle.com/code/igorvysochanskyy/Chicago-on-Wheels)
