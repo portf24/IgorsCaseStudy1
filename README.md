@@ -1,14 +1,22 @@
 ## About me
 
-- Transitioning from a career in the electronic industry, I'm now eager to delve into the world of entry-level analytics. Armed with a Google Data Analytics Professional Certificate, I'm driven by a passion for technology and a knack for solving intricate problems. Constantly engaging with data analysis has marked my journey, whether it's troubleshooting electronic equipment, quality control, or engineering solutions for everyday challenges.
+- Transitioning from a career in the electronics industry, I'm now eager to delve into entry-level analytics. Armed with a Google Data Analytics Professional Certificate and additional training in statistics, I'm driven by a passion for technology and a knack for solving intricate problems. Constantly engaging with data analysis has marked my journey, whether it's troubleshooting electronic equipment, quality control, or engineering solutions for everyday challenges.
 
-- I thrive on tackling challenging, diverse projects and am continually seek opportunities to learn and grow. Through real-world case studies and hands-on experience, I’ve built strong analytical skills that help me solve problems and bring meaningful insights to every project I take on.
+- I thrive on tackling challenging, diverse projects and continually seek opportunities to learn and grow. Through real-world case studies, statistical analysis, and hands-on experience, I’ve developed strong analytical skills that help me solve problems and deliver meaningful insights on every project I take on.
 
 ## Skills:
 
-### R programming, SQL, Big Query, Tableau, Google Sheets,
-### Microsoft Applications: Word, Excel, Access, PowerPoint
-#### For a comprehensive overview of my skills and experiences, please use this link - [resume](Igors_Resume.pdf)
+### Data Analysis & Statistics:
+#### Descriptive & Inferential Statistics
+#### Probability Distributions
+#### Hypothesis Testing & Confidence Intervals
+#### Variance Analysis
+
+### Tools & Technologies:
+#### R programming, SQL, BigQuery, Tableau, Google Sheets
+#### Microsoft Applications: Word, Excel, Access, PowerPoint
+
+#### For a comprehensive overview of my skills and experiences, please use this link: [resume](Igors_Resume.pdf)
 
 ## Project:
 ### Chicago Cyclistic Case Study
@@ -16,11 +24,23 @@
 ##### The goal of this analysis was to find marketing strategies for increasing the number of annual memberships.
 ##### This task involved analyzing differences and trends in bike usage between members and casual riders, focusing on the number of trips, trip duration, and price. R programming was used to visualize these trends with ggplot() and percentile-based analyses to highlight key insights.
 - For the project, I utilized RStudio for data cleaning, aggregation, statistical analysis, and visualization, while Excel, including PivotTable and charts, was employed for data observation, additional research, and visualization tasks.
-- The entire project link is under the photo
-- Other links: [Analysis Description](Analysis%20Description.pdf); [PowerPoint](PowerPoint1.pdf); [Project Content](Project%20content.pdf); 
-- Run code and verify functionality on [Kaggle](https://www.kaggle.com/code/igorvysochanskyy/Chicago-on-Wheels)
+- The entire project link is under the photo.
+- Other links: [Analysis Description](Analysis%20Description.pdf); [PowerPoint](Case%201%20PPT.pdf); [Project Content](Project%20content.pdf); 
+- Run code and verify functionality on [Kaggle](https://www.kaggle.com/code/igorvysochanskyy/Chicago-on-Wheels).
 
 ## Education:
+
+### Statistics — 365 Data Science:
+[Certificate](https://learn.365datascience.com/certificates/CC-4B70BAFAF3/)
+
+- Comprehensive program covering descriptive and inferential statistics, probability, variance analysis, confidence intervals, and hypothesis testing
+- Emphasis on statistical thinking, formula-based problem solving, and practical data analysis
+
+**Project: Customer Engagement Analysis (Excel)**
+- Evaluated the impact of new platform features (XP progression, rewards, leaderboards, streaks, expanded course library) introduced in 2022
+- Applied statistical tests and distribution analysis to assess changes in student engagement
+- Interpreted results to draw data-driven conclusions about user behavior and platform performance
+
 
 ### Google Data Analytics Professional Certificate:
 - 8 Courses Completed
@@ -51,5 +71,4 @@
 ### Contact
 #### Email:  igor.vysochan@outlook.com
 #### [LinkedIn Link](https://www.linkedin.com/in/igor-vysochanskyy-7ab4922a2/) 
-#### [Medium Link](https://medium.com/@vyssoc01/cyclistic-bike-share-unlocking-insights-for-success-e136fc0543a5)
 #### [Kaggle Link](https://www.kaggle.com/code/igorvysochanskyy/Chicago-on-Wheels)
