@@ -18,35 +18,37 @@
 
 #### For a comprehensive overview of my skills and experiences, please use this link: [resume](Igors_Resume.pdf)
 
-## Project:
+## Google Data Analytics Project:
 ### Chicago Cyclistic Case Study
 #### Exploring: How does a bike-share navigate speedy success?
 ##### The goal of this analysis was to find marketing strategies for increasing the number of annual memberships.
 ##### This task involved analyzing differences and trends in bike usage between members and casual riders, focusing on the number of trips, trip duration, and price. R programming was used to visualize these trends with ggplot() and percentile-based analyses to highlight key insights.
 - For the project, I utilized RStudio for data cleaning, aggregation, statistical analysis, and visualization, while Excel, including PivotTable and charts, was employed for data observation, additional research, and visualization tasks.
 - The entire project link is under the photo.
-- Other links: [Analysis Description](Analysis%20Description.pdf); [PowerPoint](Case%201%20PPT.pdf); [Project Content](Project%20content.pdf); 
+- Other links: [Analysis Description](Analysis%20Description.pdf); [PowerPoint](PowerPoint1.pdf); [Project Content](Project%20content.pdf); 
 - Run code and verify functionality on [Kaggle](https://www.kaggle.com/code/igorvysochanskyy/Chicago-on-Wheels).
 
+**Statistics Project: Customer Engagement Analysis (Excel)**
+- Analyzed the impact of new 365 Data Science platform features introduced in 2022 to support company growth and increase student engagement
+- Applied statistical testing and distribution analysis to evaluate changes in user behavior and learning activity
+- Interpreted results to draw data-driven conclusions about platform performance and engagement trends
+
 ## Education:
+
+### Google Data Analytics Professional Certificate:
+- 8 Courses Completed
+[Certificate](https://www.coursera.org/share/2ee91bdc4a89b821fbb89e80e85a6241)
+
+= Comprehensive training in data cleaning, analysis, visualization, and data-driven decision-making using spreadsheets, SQL, Tableau, and R
+Focused on practical analytics workflows, data interpretation, and communicating insights to support business decisions
+
+![Coursera Badge](/Images/google_badge.png)
 
 ### Statistics — 365 Data Science:
 [Certificate](https://learn.365datascience.com/certificates/CC-4B70BAFAF3/)
 
 - Comprehensive program covering descriptive and inferential statistics, probability, variance analysis, confidence intervals, and hypothesis testing
 - Emphasis on statistical thinking, formula-based problem solving, and practical data analysis
-
-**Project: Customer Engagement Analysis (Excel)**
-- Evaluated the impact of new platform features (XP progression, rewards, leaderboards, streaks, expanded course library) introduced in 2022
-- Applied statistical tests and distribution analysis to assess changes in student engagement
-- Interpreted results to draw data-driven conclusions about user behavior and platform performance
-
-
-### Google Data Analytics Professional Certificate:
-- 8 Courses Completed
-[Certificate](https://www.coursera.org/share/2ee91bdc4a89b821fbb89e80e85a6241)
-
-![Coursera Badge](/Images/google_badge.png)
 
 ### Genesee Community College Courses (2023):
 - Microsoft Applications (Word, Excel, Access, PowerPoint)
